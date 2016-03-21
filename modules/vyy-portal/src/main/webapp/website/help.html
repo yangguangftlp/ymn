@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>微移云，企业移动办公解决方案服务商</title>
+    <meta name="keywords" content="优客互联,帮助客户更优秀,移动办公,云协作,移动OA,微信企业号,微信办公,手机办公,企业号服务商" />
+    <meta name="description" content="优客互联面向企业的日常办 公场景，提供丰富的基于微信平台的轻应用；同时， 向企业用户提供企业号开通及认证、应用定制、使用培训、辅助运营、统计分析等全 方位办公自动化解决方案。"/><meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <!-- basic styles -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/animate.css" rel="stylesheet" />
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<section class="wrap">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#example-navbar-collapse">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" height="50" />
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="product.html">产品</a></li>
+                    <li><a href="custom.html">定制</a></li>
+                    <li><a href="help.html" class="active">帮助</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li>
+                        <div class="header-btn btns">
+                            <a class="btn btn-dm btn-org" href="javascript:void(0)">登录</a>
+                            <a class="btn btn-dm btn-blue" href="reg.html">注册</a>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+    <section class="page-banner">
+        <img src="images/help-banner.jpg" width="100%"/>
+    </section>
+    <section class="help">
+        <div class="body-grey clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12  text-center">
+                        <div class="btn-group btn-group-lg help-btn-tab">
+                            <button type="button" class="btn btn-default btn-block" data-type="help">使用指南</button>
+                            <!--<button type="button" class="btn btn-default" data-type="question">常见问题</button>-->
+                        </div>
+                        <ul class="help-menu htab-btn-menu show">
+                            <li>
+                                <button type="button" class="btn btn-default  btn-block active" data-pro="qiandao">
+                                    签到使用说明
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default  btn-block" data-pro="shenpi">
+                                    审批申请使用说明
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="huiyishi">
+                                    会议室预订使用说明
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="baoxiao">
+                                    报销使用说明
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="qingjia">
+                                    请假使用说明
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="jiekuan">
+                                    借款使用说明
+                                </button>
+                            </li>
+                             <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="yuangongpingjia">
+                                    员工评价使用说明
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="pingjiaguanli">
+                                   评价管理使用说明
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="wentifankui">
+                                   问题反馈使用说明
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="kuaididaole">
+                                   快递到了使用说明
+                                </button>
+                            </li>
+<!--                             <li> -->
+<!--                                 <button type="button" class="btn btn-default btn-block" data-pro="tongxunlu"> -->
+<!--                                     通讯录使用说明 -->
+<!--                                 </button> -->
+<!--                             </li> -->
+
+                        </ul>
+                        <ul class="question-menu htab-btn-menu hidden">
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="div-1">
+                                    微移云是做什么的？
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="div-2">
+                                    微移云应用怎么授权？
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="div-3">
+                                    微移云用户使用指南
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-block" data-pro="div-4">
+                                    微移云权限管理操作指南
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-default  btn-block" data-pro="div-5">
+                                    微移云怎么跟微信号绑定使用？
+                                </button>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                        <div class="help-rgtdesc">
+                            <div class="hrgtd-module show qiandao-desc">
+                                <h3>签到使用说明</h3>
+                                <dl>
+                                    <dt>
+                                        签到签退
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部“签到处”选择要签到的类型。上下班打卡或开会签到。</p>
+                                        <p>2、点击底部“发起签到”，选择需要签到的类型和人员，发起签到。</p>
+                                        <p class="mt-20  wow fadeIn"><img src="images/qiandao/hqd1.jpg" width="100%" /></p>
+                                    </dd>
+                                    <dt>
+                                        签到详情
+                                    </dt>
+                                    <dd>
+                                        <p>1、考勤记录：点击“记录查询”，进入“我的签到”页面。点击任意月份，可查询该月份内的考勤记录详情。</p>
+                                        <p>2、进入“我发起的”页面可查看我所发起的任何签到事项，加班签到或开会签到等等各种主题签到。</p>
+                                        <p class="mt-20 wow fadeIn"><img src="images/qiandao/hqd2.jpg" width="67%" /></p>
+                                    </dd>
+                                    <dt>
+                                        主题签到
+                                    </dt>
+                                    <dd>
+                                        <p>1、新建主题签到：点击“发起签到”，进入“主题签到”页面。您可以新建任何主题签到，开会或者加班。</p>
+                                        <p>2、进入“签到处”页面可查看我的考勤签到和订在今天的所有主题签到，假如明天有开会签到，则页面会在明天显示您的开会签到。</p>
+                                        <p class="mt-20 wow fadeIn"><img src="images/qiandao/hqd3.jpg" width="67%" /></p>
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div class="hrgtd-module hidden shenpi-desc">
+                                <h3>审批申请使用说明</h3>
+                                <dl>
+                                    <dt>
+                                        发起审批
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部“发起审批”选择“普通审批”还是“合同审批”。</p>
+                                        <p>2、点击底部“普通审批”，根据提示填写审批的流程。</p>
+                                        <p>3、填写“流程名称”、“归属部门”、“审批内容”、“备注”、“相关材料扫描件”等内容，
+                                            点击“发起审批”完成此次流程审批申请。</p>
+                                        <p class="mt-20"><img src="images/shenpi/hsp1.jpg" width="100%" /></p>
+                                    </dd>
+                                    <dt>
+                                        我的记录
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部“我的记录”，选择“我的申请”页面。可查询我所有的申请以及申请的进度。</p>
+                                        <p>2、点击底部“抄送给我”页面可查看所有抄送给我的申请。</p>
+                                        <p class="mt-20"><img src="images/shenpi/hsp2.jpg" width="33%" /></p>
+                                    </dd>
+                                    <dt>
+                                        审核记录
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部“审核记录”可查看所有需要我审核的记录，待审核的和已审核的。</p>
+                                        <p class="mt-20"><img src="images/shenpi/hsp3.jpg" width="33%" /></p>
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div class="hrgtd-module hidden huiyishi-desc">
+                                <h3>会议室预定使用说明</h3>
+                                <dl>
+                                    <dt>
+                                        预订会议室
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部导航“预定会议”，会进入到快速预定的页面，按照提示选择地点、日期、时间、和时长。点击确认“快速预定”按钮，根据您输入的条件，显示可用的会议室，然后按照您的会议人数多少，选择合适的会议室。最后选择参会人员确定。</p>
+                                        <p class="mt-20"><img src="images/huiyishi/hhys1.jpg" width="100%" /></p>
+
+                                    </dd>
+                                    <dt>
+                                        	会议查询
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部会议查询，查看我要参加或已结束的会议。</p>
+                                        <p class="mt-20"><img src="images/huiyishi/hhys2.jpg" width="67%" /></p>
+                                    </dd>
+
+                                </dl>
+                            </div>
+
+                            <div class="hrgtd-module hidden baoxiao-desc">
+                                <h3>报销使用说明</h3>
+                                <dl>
+                                    <dt>
+                                        新建报销
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部导航“新建报销”，新建报销，依次填写“报销主题”、“报销部门”“报销费用”“报销事由”“报销总额”，
+                                            确定后点击“申请报销”，申请了之后如果许久没有报销下来可以点击“催办“。</p>
+                                        <p class="mt-20"><img src="images/baoxiao/hbx1.jpg" width="100%"/></p>
+                                    </dd>
+                                    <dt>
+                                        财务审核
+                                    </dt>
+                                    <dd>
+                                        <p>点击底部“财务处理”，可查看需要您处理的其他同事提交的对公借款和对私借款，普通员工无法查看和操作 。</p>
+                                        <p class="mt-20"><img src="images/baoxiao/hbx3.jpg" width="67%"/></p>
+                                    </dd>
+                                    <dt>
+                                        报销记录
+                                    </dt>
+                                    <dd>
+                                        <p>点击底部“报销记录”，可以查看您所有的报销事项，还有报销的审核状态。</p>
+                                        <p class="mt-20"><img src="images/baoxiao/hbx2.jpg" width="33%"/></p>
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div class="hrgtd-module hidden qingjia-desc">
+                                <h3>请假使用说明</h3>
+                                <dl>
+                                    <dt>
+                                        请假
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部导航“请假”，进入请假申请页面。选择“请假事由”，填写“请假说明”、
+                                            “职位部门”等信息，点击“申请”完成此次请假申请。</p>
+                                        <p class="mt-20"><img src="images/qingjia/hqj1.jpg" width="100%" /></p>
+                                    </dd>
+                                    <dt>
+                                        我的记录
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部“我的记录”，选择“我的申请”页面。可查询我所有的申请以及申请的进度。</p>
+                                        <p>2、点击底部“我的记录”页面选择“抄送给我”页面可查看所有抄送给我的请假事项。</p>
+                                        <p class="mt-20"><img src="images/qingjia/hqj2.jpg" width="100%" /></p>
+                                    </dd>
+                                    <dt>
+                                        审核记录
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部“审核记录”可查看所有需要我审核的记录，待审核的和已审核的。</p>
+                                        <p class="mt-20"><img src="images/qingjia/hqj3.jpg" width="33%" /></p>
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div class="hrgtd-module hidden tongxunlu-desc">
+                                <h3>通讯录使用说明</h3>
+                                <dl>
+                                    <dt>
+                                        分组说明
+                                    </dt>
+                                    <dd>
+                                        <p>1、按照不同的部门划分，例如：想要一位HR，直接点人力资源部就可以了、、不用从上往下挨个寻找。</p>
+                                        <p class="mt-20"><img src="images/tongxunlu/htx1.jpg" width="33%" /></p>
+                                    </dd>
+                                    <dt>
+                                        选人说明
+                                    </dt>
+                                    <dd>
+                                        <p>在通讯录中选人，被划分成两种，一种是单选、一种是多选。单选点击一个名字之后再点其他人。第一次点击的标示会转
+                                            移到您下一次点击的名字上，多选的话则会保留，您可以按照具体要求选多个人。</p>
+                                        <p class="mt-20"><img src="images/tongxunlu/htx2.jpg" width="67%" /></p>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="hrgtd-module hidden yuangongpingjia-desc">
+                                <h3>员工评价使用说明</h3>
+                                <dl>
+                                    <dt>
+                                        待我评价
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部“待我评价”选择查看未结束或已结束的评价，进行操作。</p>
+                                        <p>2、只要在“待我评价”看到的关于员工评价信息都有权操作。</p>
+                                        <p class="mt-20"><img src="images/pingjia/hpj1.jpg" width="100%" /></p>
+                                    </dd>
+                                    <dt>
+                                        评价我的
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击“评价我的”，进入“评价我的”页面。点击任意一个评价，可看到各个人员的评价结果。</p>
+                                        <p class="mt-20"><img src="images/pingjia/hpj2.jpg" width="100%" /></p>
+                                    </dd>
+                                </dl>
+                            </div>
+							<div class="hrgtd-module hidden pingjiaguanli-desc">
+                                <h3>评价管理使用说明</h3>
+                                <dl>
+                                    <dt>
+                                       发起评价
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部“发起评价”进入到编辑评价页面，可以发起一个员工评价。</p>
+                                        <p>2、填好评价主题、问题列表、选好评价人和被评价人，然后发起评价。</p>
+                                        <p class="mt-20"><img src="images/pingjiapaihang/hpjgl1.jpg" width="67%" /></p>
+                                    </dd>
+                                    <dt>
+                                        评价查询
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击“评价查询”，进入“评价查询”页面。点击任意一个评价，可看到各个人员的评价信息。</p>
+                                        <p class="mt-20"><img src="images/pingjiapaihang/hpjgl2.jpg" width="67%" /></p>
+                                    </dd>
+                                   
+                                </dl>
+                            </div>
+                            <div class="hrgtd-module hidden jiekuan-desc">
+                               <h3>借款使用说明</h3>
+                                <dl>
+                                    <dt>
+                                        我的借款
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部导航“我的借款”，根据您的需要选择对应的项目，对私借款、对公借款或“借款记录”。</p>
+                                        <p>2、“对私借款”是针对个人的借款，“对公借款”则是针对公司业务上的借款，公私分明。</p>
+                                        <p>3、“借款记录”是本人所有的对公对私的借款详情。</p>
+                                        <p class="mt-20"><img src="images/jiekuan/hjk1.jpg" width="100%" /></p>
+                                    </dd>
+                                    <dt>
+                                        借款审核
+                                    </dt>
+                                    <dd>
+                                        <p>点击底部“借款审核”，可以查看需要您处理的其他同事的借款项目。</p>
+                                        <p class="mt-20"><img src="images/jiekuan/hjk2.jpg" width="100%" /></p>
+                                    </dd>
+                                    <dt>
+                                        财务处理
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击底部“财务处理”，可查看需要您处理的其他同事提交的对公借款和对私借款，普通员工无法查看和操作 。</p>
+                                        <p class="mt-20"><img src="images/jiekuan/hjk3.jpg" width="67%" /></p>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="hrgtd-module hidden wentifankui-desc">
+                                <h3>问题反馈使用说明</h3>
+                                <dl>
+                                    <dt>
+                                        提问题
+                                    </dt>
+                                    <dd>
+                                        <p>1、进去“问题反馈”应用，点击底部“提问题”进入到编辑问题页面，可以在页面写出你认为不合理的问题。</p>
+                                        <p>2、填好问题内容、修改建议、加上页面截图，就可以提交问题了。</p>
+                                        <p class="mt-20"><img src="images/fankui/hfk1.jpg" width="67%" /></p>
+                                    </dd>
+                                    <dt>
+                                        我的问题
+                                    </dt>
+                                    <dd>
+                                        <p>1、我的问题页面，显示你提交的问题，已解决或者未解决。点击某个问题可以看到问题详细信息。</p>
+                                        <p>2、技术人员看到并作出改善之后会在“修改进展”里留言，您看到之后可以点“已解决”。</p>
+										<p class="mt-20"><img src="images/fankui/hfk2.jpg" width="67%" /></p>
+                                    </dd>
+                                    <dt>
+                                        提问排行
+                                    </dt>
+                                    <dd>
+                                        <p>1、点击“提问排行”进去排行页面，可以看到员工提出问题的数量，但看不到具体信息。</p>
+                                        <p class="mt-20"><img src="images/fankui/hfk3.jpg" width="33%" /></p>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="hrgtd-module hidden kuaididaole-desc">
+                                <h3>快递到了使用说明</h3>
+                                <dl>
+                                    <dt>
+                                        快递登记
+                                    </dt>
+                                    <dd>
+                                        <p>1、进入“快递到了”应用，点击底部“快递登记”进入到快递登记页面，即可在页面录入您的快递信息。</p>
+                                        <p class="mt-20"><img src="images/kuaidi/hkd1.jpg" width="67%" /></p>
+                                    </dd>
+                                    <dt>
+                                        快递管理
+                                    </dt>
+                                    <dd>
+                                        <p>1、快递管理页面，显示您录入的快递。选择条件查询您要看的快递。</p>
+                                        <p>2、点击某个快递可查看快递详情。</p>
+										<p class="mt-20"><img src="images/kuaidi/hkd2.jpg" width="67%" /></p>
+                                    </dd>
+                                    <dt>
+                                        我的快递
+                                    </dt>
+                                    <dd>
+                                        <p>点击“我的快递”可以看到您所有的快递。</p>
+                                        <p class="mt-20"><img src="images/kuaidi/hkd3.jpg" width="33%" /></p>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="hrgtd-module hidden div-1-desc">
+                                <h2>微移云是做什么的？</h2>
+                                <dl>
+                                    <dt>
+
+                                    </dt>
+                                    <dd>
+                                        <h5></h5>
+                                        <p></p>
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div class="hrgtd-module hidden div-2-desc">
+                                <h2>微移云应用怎么授权？</h2>
+                                <dl>
+                                    <dt>
+
+                                    </dt>
+                                    <dd>
+                                        <h5></h5>
+                                        <p></p>
+                                    </dd>
+                                </dl>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<footer class="footer">
+    <div class="container">
+        <div class="row sevice">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+                <h4>微移云</h4>
+                <p class="mt-10"><a href="help.html">帮助中心</a></p>
+                <p><a href="about.html">关于我们</a></p>
+                <p><a href="custom.html">市场合作</a></p>
+                <p><a href="about.html">人才招聘</a></p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <h4>客服热线</h4>
+                <p class="big_tel">025-85635699</p>
+                <p class="b_name">江苏优客互联科技股份有限公司</p>
+                <p class="beian">版权所有 <a target="_blank"  href="http://www.miitbeian.gov.cn">苏ICP备15055835号-1</a></p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+                <h4>关注我们的微信公众号</h4>
+                <p class="mt-15"><img src="images/erweima.gif" /></p>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+<script src="js/page.js"></script>
+<script>
+	$(function(){
+		helpPage();
+	});
+</script>
+</body>
+</html>

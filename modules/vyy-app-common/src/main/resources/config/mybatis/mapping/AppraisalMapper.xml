@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.AppraisalMapper">
+
+	<resultMap id="result" type="Appraisal">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="userId" column="UserID" />
+		<result property="userName" column="UserName" />
+		<result property="theme" column="Theme" />
+		<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP" />
+		<result property="status" column="Status" />
+		<result property="endTime" column="EndTime" jdbcType="TIMESTAMP" />
+		<result property="overallMerit" column="OverallMerit" jdbcType="BOOLEAN" />
+	</resultMap>
+
+	<!-- 添加请假记录 -->
+	<insert id="addAppraisal" parameterType="java.util.List">
+		INSERT INTO tb_appraisal
+		(ID,CorpId,UserID,UserName,Theme,CreateTime,Status,EndTime,OverallMerit)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.userId},#{item.userName},#{item.theme},#{item.createTime,jdbcType=TIMESTAMP},#{item.status},#{item.endTime,jdbcType=TIMESTAMP},#{item.overallMerit,jdbcType=BOOLEAN})
+		</foreach>
+	</insert>
+
+	<!-- 获取评价信息 -->
+	<select id="getAppraisal" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT * FROM tb_appraisal
+		<where>
+			1 = 1
+			<if test="parameter.id != null and parameter.id != ''">
+				and ID = #{parameter.id}
+			</if>
+			<if test="parameter.corpId != null and parameter.corpId != ''">
+				and CorpId = #{parameter.corpId}
+			</if>
+			<if test="parameter.userId != null and parameter.userId != ''">
+				and UserID = #{parameter.userId}
+			</if>
+			<if test="keyValMap.themeLike != null and keyValMap.themeLike != ''">
+				and Theme LIKE CONCAT(CONCAT('%',#{keyValMap.themeLike }), '%')
+			</if>
+			<if test="parameter.status != null and parameter.status != ''">
+				and Status = #{parameter.status}
+			</if>
+			<if test="keyValMap.startDate != null">
+				and date(createTime) &gt;= date(#{keyValMap.startDate})
+			</if>
+			<if test="keyValMap.endDate != null">
+				and date(createTime) &lt;= date(#{keyValMap.endDate})
+			</if>
+		</where>
+		<if test="keyValMap.orderBy != null and keyValMap.orderBy != ''">
+			ORDER BY ${keyValMap.orderBy}
+		</if>
+	</select>
+
+	<!-- 根据id获取评价信息 -->
+	<select id="getAppraisalById" parameterType="string" resultMap="result">
+		SELECT * FROM tb_appraisal
+		WHERE ID = #{id}
+	</select>
+
+	<!-- 获取待我评价 -->
+	<select id="getAuditAppraisalRecord" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT a.* FROM tb_appraisal a ,tb_entity_account ea
+		where
+		ea.EntityID= a.ID
+		and ea.Invalid = false
+		and
+		ea.AccountID='${keyValMap.userId}'
+		and ea.PersonType='5'
+		and a.CorpId = ea.CorpId
+		<if test="parameter.corpId != null and parameter.corpId != ''">
+		and a.CorpId = #{parameter.corpId}
+		</if>
+		<if test="keyValMap.operationType != null">
+			<if test="keyValMap.operationType == 1">
+				and a.status in('11','12')
+				and ea.DealResult = '0'
+			</if>
+			<if test="keyValMap.operationType == 2">
+				and a.status ='13'
+			</if>
+		</if>
+		ORDER BY a.CreateTime desc
+	</select>
+
+	<!-- 获取待我评价人员数据 -->
+	<select id="getAppraisalDetailRecord" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="Map">
+		SELECT ea.*,case when Count > 0 then 1 else 0 end as Count
+		FROM tb_entity_account ea LEFT JOIN (SELECT
+		UserId,
+		CorpId,
+		AppraisalID,count(ID) as Count FROM tb_score score where
+		score.RaterId=#{keyValMap.raterId}
+		and score.AppraisalID = #{keyValMap.appraisalId}
+		<if test="parameter.corpId != null and parameter.corpId != ''">
+		and score.CorpId = #{parameter.corpId}
+		</if>
+		GROUP BY UserId) as s ON ea.AccountID = s.UserId and ea.CorpId = s.CorpId
+		where ea.EntityID = #{keyValMap.appraisalId}
+		and ea.PersonType = '4'
+		<if test="parameter.corpId != null and parameter.corpId != ''">
+		and ea.CorpId = #{parameter.corpId}
+		</if>
+		ORDER BY
+		s.count desc
+	</select>
+
+	<!-- 获取员工评价排行 -->
+	<select id="getEmployeeRankingRecord" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="Map">
+		SELECT ea.AccountID AS accountId ,
+		       ea.AccountName AS accountName,
+		       ea.Avatar AS avatar,
+		       ea.EntityID AS entityId,
+		       CASE
+		           WHEN score.AvgScore IS NULL THEN 0
+		           ELSE score.AvgScore
+		       END AS avgScore,
+		       score.Rank AS rank
+		FROM tb_entity_account ea
+		LEFT JOIN
+		  ( SELECT tb1.AppraisalID,
+		           tb1.UserId,
+		           tb1.UserName,
+		           tb1.AvgScore,
+		           CASE
+		               WHEN @prevRank = tb1.AvgScore THEN @curRank
+		               WHEN @prevRank := tb1.AvgScore THEN @curRank := @curRank +1
+		           END AS Rank
+		   FROM
+		     ( SELECT score.AppraisalID,
+		              score.UserId,
+		              score.UserName,
+		              truncate(sum(Score)/count(DISTINCT score.RaterId) ,1)AS AvgScore
+		      FROM tb_score AS score
+		      WHERE score.AppraisalID = #{keyValMap.appraisalId}
+		      <if test="parameter.corpId != null and parameter.corpId != ''">
+		        AND score.CorpId = #{parameter.corpId}
+		      </if>
+		      GROUP BY score.UserId )tb1,
+		     (SELECT @curRank:=0,@prevRank:=NULL) tb2
+		   ORDER BY AvgScore DESC )score ON ea.AccountID = score.UserId
+		WHERE ea.EntityID = #{keyValMap.appraisalId}
+		  AND ea.PersonType = '4'
+		<if test="parameter.corpId != null and parameter.corpId != ''">
+		  AND ea.CorpId = #{parameter.corpId}
+		</if>
+		ORDER BY score.AvgScore DESC
+		<!-- SELECT ea.AccountID as accountId ,ea.AccountName as
+		accountName,ea.Avatar as avatar, ea.EntityID as entityId,
+		case
+		when score.AvgScore is null then 0
+		else score.AvgScore
+		end as avgScore,
+		score.Rank as rank FROM tb_entity_account ea
+		LEFT JOIN (
+		SELECT tb1.AppraisalID,tb1.UserId,tb1.UserName,tb1.AvgScore,
+		case
+		WHEN @prevRank = tb1.AvgScore then @curRank
+		WHEN @prevRank := tb1.AvgScore then @curRank := @curRank +1
+		end as Rank
+		FROM (
+		SELECT
+		score.AppraisalID,score.UserId,score.UserName,truncate(sum(Score)/count(DISTINCT
+		score.RaterId) ,1)as AvgScore FROM tb_score as score
+		where score.AppraisalID=#{keyValMap.appraisalId}
+		GROUP BY score.UserId
+		)tb1,(select @curRank:=0,@prevRank:=null) tb2
+		)score
+		on ea.AccountID = score.UserId where ea.EntityID =
+		#{keyValMap.appraisalId} and ea.PersonType = '4'
+		ORDER BY score.AvgScore DESC -->
+	</select>
+		<!-- 获取员工评价排行 -->
+	<select id="getAppraisalMeRecord" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT a.* FROM tb_appraisal a ,tb_entity_account ea
+		where
+		ea.EntityID= a.ID
+		and ea.Invalid = false
+		and ea.AccountID='${keyValMap.userId}'
+		and ea.PersonType='4'
+		and a.CorpId = ea.CorpId
+		<if test="parameter.corpId != null and parameter.corpId != ''">
+		and a.CorpId = #{parameter.corpId}
+		</if>
+		<if test="keyValMap.operationType != null">
+			<if test="keyValMap.operationType == 1">
+				and a.status in('11','12')
+				and ea.DealResult = '0'
+			</if>
+			<if test="keyValMap.operationType == 2">
+				and a.status ='13'
+			</if>
+		</if>
+		ORDER BY a.CreateTime desc
+	</select>
+
+	<delete id="deleteAppraisalById" parameterType="java.util.List">
+		DELETE FROM tb_appraisal
+		WHERE ID in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">#{item}
+		</foreach>
+	</delete>
+	<!-- 更新 -->
+	<update id="updateAppraisal" parameterType="Appraisal">
+		UPDATE tb_appraisal
+		<set>
+			<if test="userId != null ">UserID = #{userId},</if>
+			<if test="userName != null ">UserName = #{userName},</if>
+			<if test="theme != null ">Theme = #{theme},</if>
+			<if test="status != null ">Status = #{status}</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+
+</mapper>

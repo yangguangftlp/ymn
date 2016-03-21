@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.AppAccessMapper">
+
+	<resultMap id="result" type="AppAccess">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="userId" column="UserID" />
+		<result property="userName" column="UserName" />
+		<result property="appId" column="AppId" />
+		<result property="appName" column="AppName" />
+		<result property="accessDate" column="AccessDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="addAppAccess" parameterType="java.util.List">
+		INSERT INTO tb_appaccess 
+		(ID,UserID,UserName,CorpId,AppId,AppName,AccessDate)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.userId},#{item.userName},#{item.corpId},#{item.appId},#{item.appName},#{item.accessDate,jdbcType=TIMESTAMP})
+		</foreach>
+	</insert>
+
+	<!-- 应用排行 -->
+	<select id="getAppAccessRanking" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="Map">
+		<if test="keyValMap.type == 0">
+		    select tb1.UserID,tb1.UserName,tb1.Total,tb1.content,
+			case 
+			WHEN @prevRank = Total then @curRank
+			WHEN @prevRank := Total then @curRank := @curRank +1
+			end as Rank
+			from (
+			SELECT tb_fb.UserID,tb_fb.UserName,sum(tb_fb.AccessTimes) as Total,GROUP_CONCAT(tb_fb.content SEPARATOR ',') as content
+			FROM
+				(
+					select ID,CorpId,AppId,AppName,UserId,UserName,AccessDate,sum(AccessTimes) as AccessTimes, CONCAT(CONCAT(AppName, SUM(AccessTimes)), '次') as content
+					from tb_appaccess
+					where 1 = 1
+					<if test="parameter.corpId != null and parameter.corpId != ''">
+						and CorpId = #{parameter.corpId}
+					</if>
+					group by UserId, AppId, CorpId
+				)
+				tb_fb
+			WHERE 1 = 1 
+			<if test="parameter.corpId != null and parameter.corpId != ''">
+				and tb_fb.CorpId = #{parameter.corpId}
+			</if>
+			<if test="parameter.corpId != null and parameter.corpId != ''">
+				and tb_fb.UserName LIKE CONCAT(CONCAT('%', #{keyValMap.userNameLike}), '%')
+			</if>
+			GROUP BY tb_fb.UserID
+			) tb1,(select @curRank:=0,@prevRank:=null) tb2
+			ORDER BY Total ${keyValMap.sort}
+		</if>
+		<if test="keyValMap.type == 1">
+		    select tb1.AppId,tb1.AppName,tb1.Total,
+			case 
+			WHEN @prevRank = Total then @curRank
+			WHEN @prevRank := Total then @curRank := @curRank +1
+			end as Rank
+			from (
+			SELECT tb_fb.AppId,tb_fb.AppName,sum(tb_fb.AccessTimes) as Total FROM tb_appaccess tb_fb
+			where 1 = 1
+			<if test="keyValMap.sort == 'w'.toString()">
+				and DATE_SUB(CURDATE(), INTERVAL 1 WEEK) &lt;= DATE(AccessDate)
+			</if>
+			<if test="keyValMap.sort == 'm'.toString()">
+				and DATE_SUB(CURDATE(), INTERVAL 1 MONTH) &lt;= DATE(AccessDate)
+			</if>
+			<if test="parameter.corpId != null and parameter.corpId != ''">
+				and tb_fb.CorpId = #{parameter.corpId}
+			</if>
+			<if test="parameter.corpId != null and parameter.corpId != ''">
+				and tb_fb.AppName LIKE CONCAT(CONCAT('%', #{keyValMap.appNameLike}), '%')
+			</if>
+			 GROUP BY tb_fb.AppId
+			) tb1,(select @curRank:=0,@prevRank:=null) tb2
+			ORDER BY Total desc
+		</if>
+	</select>
+
+	<!-- 根据id获取应用访问信息 -->
+	<select id="getAppAccessById" parameterType="String" resultMap="result">
+		SELECT * FROM tb_appaccess tb_fb where tb_fb.id = #{id}
+	</select>
+
+	<!-- 更新应用访问信息 -->
+	<update id="updateAppAccess" parameterType="Feedback">
+		UPDATE tb_appaccess
+		<set>
+			<if test="status != null ">Status = #{status},</if>
+			<if test="endTime != null ">EndTime = #{endTime}</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	<!-- 更新每天用户应用访问次数 -->
+	<update id="updateAppAccessByDay" parameterType="Feedback">
+		UPDATE tb_appaccess
+		<set>
+		 AccessTimes = AccessTimes + 1
+		</set>
+		WHERE AppId = #{appId} and UserID = #{userId} and AccessDate = CURDATE()
+	</update>
+</mapper> 

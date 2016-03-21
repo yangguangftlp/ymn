@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.LoanMapper">
+
+	<resultMap id="result" type="Loan">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="userId" column="UserID" />
+		<result property="userName" column="UserName" />
+		<result property="department" column="Department" />
+		<result property="reason" column="Reason" />
+		<result property="applyDate" column="ApplyDate" jdbcType="TIMESTAMP" />
+		<result property="amount" column="Amount" jdbcType="FLOAT" />
+		<result property="capitalAmount" column="CapitalAmount" />
+		<result property="subject" column="Subject" />
+		<result property="details" column="Details" />
+		<result property="bank" column="Bank" />
+		<result property="receiveAccount" column="ReceiveAccount" />
+		<result property="contractAmount" column="ContractAmount" />
+		<result property="remainingAmount" column="RemainingAmount" />
+		<result property="clientName" column="ClientName" />
+		<result property="projectName" column="ProjectName" />
+		<result property="remark" column="Remark" />
+		<result property="loanNum" column="LoanNum" />
+		<result property="loanUse" column="LoanUse" />
+		<result property="loanType" column="LoanType" />
+		<result property="company" column="Company" />
+		<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP" />
+		<result property="endTime" column="EndTime" jdbcType="TIMESTAMP" />
+		<result property="status" column="Status" />
+	</resultMap>
+	<!-- 添加请假记录 -->
+	<insert id="addLoan" parameterType="java.util.List">
+		INSERT INTO tb_loan
+		(ID,CorpId,Department,UserName,UserId,ApplyDate,Amount,CapitalAmount,Subject,Details
+		,Bank,ReceiveAccount,ContractAmount,RemainingAmount,ClientName,ProjectName,Remark,LoanNum,LoanUse,LoanType,Company,CreateTime,EndTime,Status)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.department},#{item.userName},#{item.userId},#{item.applyDate,jdbcType=TIMESTAMP},#{item.amount},#{item.capitalAmount},#{item.subject},#{item.details},#{item.bank},#{item.receiveAccount},#{item.contractAmount},#{item.remainingAmount},#{item.clientName},#{item.projectName},#{item.remark},#{item.loanNum},#{item.loanUse},#{item.loanType},#{item.company},#{item.createTime,jdbcType=TIMESTAMP},#{item.endTime,jdbcType=TIMESTAMP},#{item.status})
+		</foreach>
+	</insert>
+	<!-- 根据id获取借款信息 -->
+	<select id="getLoanById" parameterType="String" resultMap="result">
+		SELECT * FROM tb_loan
+		WHERE ID = #{id}
+	</select>
+
+	<!-- 获取借款记录 -->
+	<select id="getLoan" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT * FROM tb_loan
+		<if test="_parameter != null">
+			<where>
+				<if test="parameter.corpId != null and parameter.corpId != ''">
+					and CorpId = #{parameter.corpId}
+				</if>
+				<if test="parameter.userId != null and parameter.userId != ''">
+					and UserId = #{parameter.userId}
+				</if>
+				<if test="parameter.status != null and parameter.status != ''">
+					and Status = #{parameter.status}
+				</if>
+				<if test="parameter.loanNum != null and parameter.loanNum != ''">
+					and LoanNum = #{parameter.loanNum}
+				</if>
+				<if test="parameter.loanUse != null and parameter.loanUse != ''">
+					and LoanUse = #{parameter.loanUse}
+				</if>
+				<if test="parameter.loanType != null and parameter.loanType != ''">
+					and LoanType = #{parameter.loanType}
+				</if>
+				<if test="keyValMap.operationType != null and keyValMap.operationType != ''">
+					<if test="keyValMap.operationType == 0">
+						and Status in ('1','2','3')
+					</if>
+					<if test="keyValMap.operationType == 1">
+						and Status in ('10','-1','-2')
+					</if>
+				</if>
+				<!-- 申请开始时间 -->
+				<if test="keyValMap.startDate != null and keyValMap.startDate != ''">
+					and ApplyDate &gt;=
+					#{keyValMap.startDate,jdbcType=TIMESTAMP}
+				</if>
+				<!-- 申请结束时间 -->
+				<if test="keyValMap.endDate != null and keyValMap.endDate != ''">
+					and ApplyDate &lt;=
+					#{keyValMap.endDate,jdbcType=TIMESTAMP}
+				</if>
+				<!-- 申请人 -->
+				<if
+					test="keyValMap.userNameLike != null and keyValMap.userNameLike != ''">
+					and UserName LIKE CONCAT(CONCAT('%',
+					#{keyValMap.userNameLike}), '%')
+				</if>
+			</where>
+		</if>
+		ORDER BY CreateTime desc
+	</select>
+	<!-- 获取已审核记录 -->
+	<select id="getLoanBeAuditRecord" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="Map">
+		select l.ID as id,l.UserName as userName ,l.Subject as subject,
+		l.ApplyDate as applyDate,l.Company as company,l.loanType as
+		loanType,l.loanNum as loanNum,l.Status as
+		status,ea.DealResult as
+		dealResult
+		from tb_loan l ,tb_entity_account
+		ea
+		where
+		ea.EntityID =
+		l.ID
+		and ea.Invalid = false
+		and ea.CorpId = l.CorpId
+		<if test="keyValMap.userId != null">
+			and ea.AccountID='${keyValMap.userId}'
+		</if>
+		<if test="keyValMap.corpId != null">
+			and ea.CorpId = '${keyValMap.corpId}'
+		</if>
+		<if test="keyValMap.personType != null">
+			and ea.PersonType= '${keyValMap.personType}'
+		</if>
+		<if test="keyValMap.userNameLike != null">
+			and l.UserName LIKE
+			CONCAT(CONCAT('%',#{keyValMap.userNameLike }), '%')
+		</if>
+		<if test="keyValMap.loanNumLike != null">
+			and l.LoanNum LIKE
+			CONCAT(CONCAT('%',#{keyValMap.loanNumLike }), '%')
+		</if>
+		<if test="keyValMap.startDate != null">
+			and l.ApplyDate &gt;= date(#{keyValMap.startDate})
+		</if>
+		<if test="keyValMap.endDate != null">
+			and l.ApplyDate &lt;= date(#{keyValMap.endDate})
+		</if>
+		<if test="keyValMap.applyDate != null">
+			and l.ApplyDate = date(#{keyValMap.applyDate})
+		</if>
+		<if test="keyValMap.personType == 2">
+			and ((l.LoanType ='1' and l.`Status` &lt;&gt;'10'  ) or l.LoanType ='0')
+		</if>
+		and (ea.DealResult &lt;&gt;'0' )
+		ORDER BY l.CreateTime desc
+	</select>
+	<!-- 获取待审核记录 -->
+	<select id="getLoanAuditRecord" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="Map">
+		select l.ID as id,l.UserName as userName ,l.Subject as subject,
+		l.ApplyDate as applyDate,l.Company as company,l.loanType as
+		loanType,l.loanNum as loanNum,l.Status as
+		status,ea.DealResult as
+		dealResult
+		from tb_loan l ,tb_entity_account
+		ea
+		where
+		ea.EntityID =
+		l.ID
+		and ea.Invalid = false
+		and ea.AccountID='${keyValMap.userId}'
+		and
+		ea.CorpId = l.CorpId
+		and l.status not in('0','-1','-2','10')
+		<if test="keyValMap.corpId != null">
+			and ea.CorpId= '${keyValMap.corpId}'
+		</if>
+		<if test="keyValMap.personType != null">
+			and ea.PersonType= '${keyValMap.personType}'
+		</if>
+		<if test="keyValMap.userNameLike != null">
+			and l.UserName LIKE
+			CONCAT(CONCAT('%',#{keyValMap.userNameLike }), '%')
+		</if>
+		<if test="keyValMap.loanNumLike != null">
+			and l.LoanNum LIKE
+			CONCAT(CONCAT('%',#{keyValMap.loanNumLike }), '%')
+		</if>
+		<if test="keyValMap.startDate != null">
+			and l.ApplyDate &gt;= date(#{keyValMap.startDate})
+		</if>
+		<if test="keyValMap.endDate != null">
+			and l.ApplyDate &lt;= date(#{keyValMap.endDate})
+		</if>
+		<if test="keyValMap.applyDate != null">
+			and l.ApplyDate = date(#{keyValMap.applyDate})
+		</if>
+		and (ea.DealResult = '0' or ea.DealResult = '4')
+		ORDER BY l.CreateTime
+		desc
+	</select>
+	<update id="updateLoan" parameterType="Loan">
+		UPDATE tb_loan
+		<set>
+			<if test="status != null ">Status = #{status },</if>
+			<if test="department != null ">Department = #{department },</if>
+			<if test="applyDate != null ">ApplyDate = #{applyDate ,jdbcType=TIMESTAMP},</if>
+			<if test="amount != null ">Amount = #{amount},</if>
+			<if test="capitalAmount != null ">CapitalAmount = #{capitalAmount},</if>
+			<if test="subject != null ">Subject = #{subject},</if>
+			<if test="details != null ">Details = #{details},</if>
+			<if test="bank != null ">Bank = #{bank},</if>
+			<if test="receiveAccount != null ">ReceiveAccount = #{receiveAccount},</if>
+			<if test="contractAmount != null ">ContractAmount = #{contractAmount},</if>
+			<if test="remainingAmount != null ">RemainingAmount = #{remainingAmount},</if>
+			<if test="clientName != null ">ClientName = #{clientName},</if>
+			<if test="projectName != null ">ProjectName = #{projectName},</if>
+			<if test="remark != null ">Remark = #{remark},</if>
+			<if test="loanNum != null ">LoanNum = #{loanNum},</if>
+			<if test="loanUse != null ">LoanUse = #{loanUse},</if>
+			<if test="loanType != null ">LoanType = #{loanType},</if>
+			<if test="company != null ">Company = #{company}</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	<delete id="deleteLoan" parameterType="Loan">
+		DELETE FROM tb_loan WHERE
+		ID = #{id}
+	</delete>
+
+	<!-- 删除借款记录 -->
+	<delete id="deleteByIds" parameterType="java.util.List">
+		DELETE FROM tb_loan WHERE ID in 
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>

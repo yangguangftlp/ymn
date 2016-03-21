@@ -1,0 +1,249 @@
+.related{
+	margin:15px 10px;
+	font-size:18px;
+}
+.related a{
+	color:#26A69A
+}
+.formList:first-child {
+    border-top: 0;
+}
+.navTitle{
+	font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+.relatedPop{
+	position:fixed;
+	z-index:9999;
+	top:0;left:0;
+	width:100%;
+	height:100%;
+	background:#fff
+}
+.objectSearch{
+    position: relative;
+    height: 46px;
+    border-bottom: 1px solid #ddd;
+	background: #eee;
+    line-height: 46px;
+    font-size:16px;
+}
+ .objectSearch i {
+    position: relative;
+    color: #888;
+    margin: 0 10px 0 16px;
+}
+.objectSearch input[type="text"] {
+    height: 46px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 50px;
+    padding-left: 30px;
+    background:none;
+    border:none;
+    box-sizing: border-box;
+    font-size:16px;
+    transition: all 0.1s ease-in 0s;
+}
+.objectSearch input[type="submit"] {
+    display: none;
+    position: absolute;
+    right: 10px;
+    width: 40px;
+    height: 46px;
+    top: 0;
+    background:none;
+    border: none;
+    box-sizing: border-box;
+    color: #177ee5;
+    line-height: 46px;
+    z-index: 99;
+}
+.relatedList{
+	overflow-y:auto;
+	background:#fff;
+}
+.relatedList li{
+	cursor:pointer;
+	padding:10px 10px 10px 15px;
+	border-bottom:solid 1px #ddd;
+	font-size:14px;
+	color:#666
+}
+.relatedList li strong{
+	font-weight:normal;
+	color:#222
+}
+.relatedList li p{
+	margin-bottom:8px;
+}
+
+.selObject .listLeft{
+	margin-left:0;
+}
+.selObject i{
+	position:absolute;
+	right:0;top:10px;
+	font-size:24px;
+	color:#666;
+}
+.objFluid{
+	position:relative;
+	clear:both;
+	padding:10px;
+	background:#fff;
+	border-bottom:solid 1px #ddd;
+	font-size:14px;
+	overflow:hidden;
+	color:#222
+}
+.objFluid .del{
+	position:absolute;
+	right:-30px;bottom:-30px;
+	width:60px;
+	height:60px;
+	background:#eee;
+	transform:rotate(45deg);
+	-ms-transform:rotate(45deg); 	/* IE 9 */
+	-moz-transform:rotate(45deg); 	/* Firefox */
+	-webkit-transform:rotate(45deg); /* Safari ºÍ Chrome */
+	-o-transform:rotate(45deg);
+	z-index:9;
+}
+.objFluid .del i{
+	position: absolute;
+    top: 19px;
+    left: 4px;
+    transform:rotate(-45deg);
+	-ms-transform:rotate(-45deg); 	/* IE 9 */
+	-moz-transform:rotate(-45deg); 	/* Firefox */
+	-webkit-transform:rotate(-45deg); /* Safari ºÍ Chrome */
+	-o-transform:rotate(-45deg);
+    color: #666;
+    font-size: 20px;
+}
+.objFluid input{
+	border:solid 1px #ddd;
+	height:30px;line-height:30px;padding-left:10px;
+}
+.objFluid strong{
+	font-weight:normal;
+	color:#666
+}
+input[disabled]{
+	color:#000!important;
+}
+.navTitle{
+	overflow:hidden;
+}
+.editBtn,.saveBtn{
+	float:right;
+	margin-right:10px;
+	height:28px;line-height:28px;
+	padding:0 5px;
+	margin-top:5px;
+	color:#fff;
+}
+
+
+.recordInfo{
+	background:#fff;
+}
+.recordInfo li{
+	border-bottom:solid 1px #ddd;
+	
+}
+.recordInfo strong{
+	display:inline-block;
+	width:5em;
+	text-align:justify;
+	color:#222;
+	font-weight:normal;
+}
+.searchWarp{
+	border:none;
+}
+.searchForm{
+	background:#eee;
+	padding:20px 0;
+	border-bottom:solid 5px #ddd
+}
+.searchList{
+	background:#eee;
+}
+.searchList i{
+	cursor:pointer;
+}
+.searchWarp .searchBtn{
+	margin:10px 0 10px 5.6em;
+}
+.searchToggle{
+	top:-20px;bottom:auto;
+	
+}
+
+.myhide{
+	display:none;
+}
+.resultList{
+	margin-top:20px;
+}
+.resultList li{
+	cursor:pointer;
+	padding:10px;
+	position:relative;
+	font-size:14px;
+	border-bottom:solid 1px #ddd;
+	background:#fff;
+}
+.resultList i.fa{
+	position:absolute;
+	right:10px;
+	top:2.5em;
+	font-size:24px;
+}
+.resultList h4{
+	padding-left:5px;
+	font-size:16px;
+	color:#26a69a
+}
+.resultList p{
+	margin:5px;
+	font-size:14px;
+}
+.resultList strong{
+	font-weight:normal;
+}
+.resultList p i.fa{
+	position:static;
+	margin-right:5px;
+	font-size:14px;
+}
+.objNeed i{
+	color:#26C6DA;
+}
+.objOperator i{
+	color:#D1CCB4;
+}
+.resultList.rs i.fa{
+	top:2em
+}
+.noRes{
+    padding:20px 0;
+	text-align: center;
+    font-size: 14px;
+}
+.relatedPop button{
+	position:absolute;
+	bottom:10px;
+	left:2%;
+	width:96%;
+}
+.searchWarp{
+	background:#ebebeb
+}

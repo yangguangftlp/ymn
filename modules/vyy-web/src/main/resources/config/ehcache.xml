@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+    <!-- 硬盘路径 -->
+    <diskStore path="java.io.tmpdir/ehcache"/>
+    <!-- 默认缓存 -->
+    <defaultCache
+		   maxElementsInMemory="1000"
+		   eternal="false"
+		   timeToIdleSeconds="120"
+		   timeToLiveSeconds="120"
+		   overflowToDisk="false"/>
+		   
+	<!-- 系统状态缓存 -->	   
+    <cache name="systemStatusCache" 
+           maxElementsInMemory="1000" 
+           eternal="false"
+		   timeToIdleSeconds="120"
+		   timeToLiveSeconds="120"
+		   overflowToDisk="false" 
+		   memoryStoreEvictionPolicy="LRU"/>
+    <!-- 系统配置缓存 -->	   
+    <cache name="systemConfigCache" 
+           maxElementsInMemory="1000" 
+           eternal="false"
+		   timeToIdleSeconds="120"
+		   timeToLiveSeconds="120"
+		   overflowToDisk="false" 
+		   memoryStoreEvictionPolicy="LRU"/>
+		    <!-- 系统配置缓存 -->	   
+    <cache name="systemMenuCache" 
+           maxElementsInMemory="1000" 
+           eternal="false"
+		   timeToIdleSeconds="120"
+		   timeToLiveSeconds="120"
+		   overflowToDisk="false" 
+		   memoryStoreEvictionPolicy="LRU"/>
+    
+</ehcache>

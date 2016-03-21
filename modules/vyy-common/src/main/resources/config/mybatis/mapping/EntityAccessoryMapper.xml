@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.weixin.dao.EntityAccessoryMapper">
+
+	<resultMap id="result" type="EntityAccessory">
+		<result property="entityId" column="EntityID" />
+		<result property="fileId" column="FileID" />
+		<result property="bType" column="BType" />
+	</resultMap>
+
+	<insert id="addEntityAccessory" parameterType="java.util.List">
+		INSERT INTO tb_entity_accessory
+		(EntityID,FileID,BType)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.entityId},#{item.fileId},#{item.bType})
+		</foreach>
+	</insert>
+
+	<select id="getEntityAccessory" parameterType="EntityAccessory" resultMap="result">
+		SELECT * FROM tb_entity_accessory
+		<where>
+			<if test="entityId != null">
+				tb_entity_accessory.EntityID = #{entityId}
+			</if>
+			<if test="fileId != null">
+				tb_entity_accessory.FileId = #{fileId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 删除数据记录以及附件 -->
+	<delete id="deleteEntityAccessory" parameterType="EntityAccessory">
+		DELETE  FROM tb_entity_accessory
+		<where>
+			<if test="entityId != null">
+				EntityID = #{entityId}
+			</if>
+			<if test="fileId != null">
+				and FileId = #{fileId}
+			</if>
+			<if test="bType != null">
+				and BType = #{bType}
+			</if>
+		</where>
+	</delete>
+
+	<!-- 删除数据记录 -->
+	<delete id="deleteEntityAccessoryByEntityId" parameterType="string">
+		DELETE
+		FROM tb_entity_accessory
+		where EntityID = #{id}
+	</delete>
+
+	<!-- 更新实体文件关联 -->
+	<update id="updateEntityAccessory" parameterType="EntityAccessory">
+		UPDATE tb_entity_accessory ef
+		<set>
+			<if test="entityId != null ">EntityID = #{entityId},</if>
+			<if test="fileId != null ">FileID = #{fileId}</if>
+		</set>
+		<where>
+			<if test="entityId != null">
+				ef.EntityID = #{entityId}
+			</if>
+			<if test="entityId != null">
+				and ef.FileId = #{fileId}
+			</if>
+		</where>
+	</update>
+
+	<!-- 根据借款ID列表删除实体-借款记录 -->
+	<delete id="deleteEntityAccessoryByLoanIds" parameterType="java.util.List">
+		DELETE FROM tb_entity_accessory WHERE EntityID in 
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>

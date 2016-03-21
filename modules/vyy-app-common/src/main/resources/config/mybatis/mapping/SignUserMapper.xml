@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.SignUserMapper">
+
+	<resultMap id="result" type="SignUser">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="signId" column="SignID" />
+		<result property="userId" column="UserID" />
+		<result property="userName" column="UserName" />
+		<result property="location" column="Location" />
+		<result property="signTime" column="SignTime" jdbcType="TIMESTAMP" />
+		<result property="attendType" column="AttendType" />
+		<result property="remark" column="Remark" />
+	</resultMap>
+
+	<!-- 新增记录 -->
+	<insert id="addSignUser" parameterType="java.util.List">
+		INSERT INTO tb_sign_user
+		(ID,CorpId,SignID,UserID,UserName,Location,SignTime,AttendType,Remark)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.signId},#{item.userId},#{item.userName},#{item.location},#{item.signTime,jdbcType=TIMESTAMP},#{item.attendType},#{item.remark})
+		</foreach>
+	</insert>
+
+	<!-- 签到统计 -->
+	<select id="getSignCountByMonth" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="java.util.Map">
+		select sign_user.AttendType,count(sign_user.AttendType) as
+		Count from
+		tb_sign_user sign_user
+		<where>
+			<if test="parameter.userId != null">
+				sign_user.UserID = #{parameter.userId}
+			</if>
+			<if test="parameter.corpId != null">
+				sign_user.CorpId = #{parameter.corpId}
+			</if>
+			<if test="parameter.attendType != null">
+				and sign_user.AttendType = #{parameter.attendType}
+			</if>
+			and sign_user.SignID in(
+			<if test="keyValMap.signType == 0">
+				select sign.ID from tb_sign sign where
+				sign.SignType='0'
+			</if>
+			<if test="keyValMap.signType != 0">
+				select sign.ID from tb_sign sign,tb_entity_account
+				entity_account
+				where sign.SignType = '1'
+				and entity_account.EntityID
+				= sign.ID
+				<if test="parameter.userId != null">
+					and entity_account.AccountID = #{parameter.userId}
+				</if>
+			</if>
+			<if test="keyValMap.monthDate != null">
+				and year(sign.BeginTime) =
+				year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+				and
+				month(sign.BeginTime) =
+				month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+				and
+				year(sign.EndTime) = year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+				and month(sign.EndTime) =
+				month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			</if>
+			<!-- 这里 isSignException这要存在即可 -->
+			<if test="keyValMap.isSignException != null">
+				and (
+				(sign_user.SignTime &gt; sign.BeginTime and
+				sign_user.AttendType = '0') <!--迟到 -->
+				or
+				(sign_user.SignTime &lt; sign.EndTime and sign_user.AttendType =
+				'1') <!--早退 -->
+				)
+			</if>
+			)
+		</where>
+		GROUP BY sign_user.AttendType
+	</select>
+	<!-- 根据月份统计工作时长 -->
+	<select id="getTotalHourByMonth" resultType="java.util.Map"
+		parameterType="com.vyiyun.weixin.model.SqlQueryParameter">
+		SELECT sum(UNIX_TIMESTAMP(tb2.SignTime) -
+		UNIX_TIMESTAMP(tb1.SignTime)) *1000 as
+		totalSecond from (
+		SELECT
+		sign_user.SignTime,sign_user.SignID from tb_sign_user sign_user
+		where
+		sign_user.AttendType = '0' and sign_user.UserID=#{keyValMap.userId}
+		and sign_user.CorpId = #{keyValMap.corpId}
+		)
+		as tb1,(
+		SELECT
+		sign_user.SignTime,sign_user.SignID from tb_sign_user
+		sign_user
+		where sign_user.AttendType = '1' and sign_user.UserID=#{keyValMap.userId}
+		and sign_user.CorpId = #{keyValMap.corpId}
+		) as tb2 ,(
+		SELECT sign.ID FROM tb_sign sign
+		WHERE sign.SignType =#{keyValMap.signType}
+		and year(sign.BeginTime) =
+		year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+		and
+		month(sign.BeginTime) =
+		month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+		and year(sign.EndTime)
+		= year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+		and
+		month(sign.EndTime) =
+		month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+		and sign.CorpId =#{keyValMap.corpId}
+		)
+		as tb3
+		where tb1.SignID = tb2.SignID
+		and tb2.SignID = tb3.ID
+
+	</select>
+	<!-- 统计出勤率 -->
+	<select id="getAttendanceRateByMonth" resultType="java.util.Map"
+		parameterType="com.vyiyun.weixin.model.SqlQueryParameter">
+		select a.totalCount,b.completedCount from
+		(
+		SELECT
+		count(entity_account.EntityID) as
+		totalCount from
+		tb_entity_account
+		entity_account,tb_sign sign
+		where
+		sign.SignType=#{keyValMap.signType}
+		and sign.ID =
+		entity_account.EntityID
+		and
+		entity_account.AccountID =
+		#{keyValMap.userId}
+		and sign.CorpId = #{keyValMap.corpId}
+		<if test="keyValMap.monthDate != null">
+			and year(sign.BeginTime) =
+			year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and
+			month(sign.BeginTime) =
+			month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and
+			year(sign.EndTime) = year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and month(sign.EndTime) =
+			month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+		</if>
+		) as a,
+		(
+		SELECT
+		count(entity_account.EntityID) as completedCount from
+		tb_entity_account entity_account,tb_sign sign
+		where
+		sign.SignType=#{keyValMap.signType}
+		and sign.ID =
+		entity_account.EntityID
+		and
+		entity_account.AccountID =
+		#{keyValMap.userId}
+		and sign.CorpId = #{keyValMap.corpId}
+		<if test="keyValMap.monthDate != null">
+			and year(sign.BeginTime) =
+			year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and
+			month(sign.BeginTime) =
+			month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and
+			year(sign.EndTime) = year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and month(sign.EndTime) =
+			month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+		</if>
+		and
+		2= (
+		select
+		count(sign_user.SignID) from tb_sign_user sign_user
+		where
+		sign_user.SignID = entity_account.EntityID
+		)
+		) as b
+	</select>
+
+	<!-- 根据月份统计异常考勤信息 -->
+	<select id="getExceptionKQSignByMonth" resultType="java.util.Map"
+		parameterType="com.vyiyun.weixin.model.SqlQueryParameter">
+		select sign.*,sign_user.* from (
+		select sign.ID,date(sign.BeginTime) as
+		KqDate,sign.BeginTime,sign.EndTime from tb_sign sign
+		where
+		sign.SignType='0'
+		and sign.CorpId = #{keyValMap.corpId}
+		<if test="keyValMap.monthDate != null">
+			and year(sign.BeginTime) =
+			year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and
+			month(sign.BeginTime) =
+			month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and
+			year(sign.EndTime) = year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and month(sign.EndTime) =
+			month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+		</if>
+		) sign
+		left join (
+		select
+		sign_user.SignID,GROUP_CONCAT(sign_user.SignTime) as
+		SignTime,GROUP_CONCAT(sign_user.AttendType) AttendType from
+		tb_sign_user sign_user,tb_sign sign
+		where
+		sign_user.SignID =
+		sign.ID and
+		sign.SignType='0'
+		and sign_user.CorpId = #{keyValMap.corpId}
+		and sign.CorpId = #{keyValMap.corpId}
+		<if test="keyValMap.userId != null">
+			and sign_user.UserId=#{keyValMap.userId}
+		</if>
+		<if test="keyValMap.monthDate != null">
+			and year(sign.BeginTime) =
+			year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and
+			month(sign.BeginTime) =
+			month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and
+			year(sign.EndTime) = year(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+			and month(sign.EndTime) =
+			month(#{keyValMap.monthDate,jdbcType=TIMESTAMP})
+		</if>
+		GROUP BY sign_user.SignID
+		)sign_user on sign.ID = sign_user.SignID
+		ORDER BY sign.BeginTime DESC
+	</select>
+
+	<!-- 查询数据 -->
+	<select id="getSignUser" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT *
+		<include refid="selectSignUserByQueryCriteriaSql" />
+	</select>
+	<!-- 条件sql -->
+	<sql id="selectSignUserByQueryCriteriaSql">
+		FROM tb_sign_user tb
+		<where>
+			1 = 1
+			<if test="parameter.signId != null">
+				and SignID = #{parameter.signId}
+			</if>
+			<if test="parameter.corpId != null">
+				and CorpId = #{parameter.corpId}
+			</if>
+			<if test="parameter.userId != null">
+				and UserID = #{parameter.userId}
+			</if>
+			<if test="parameter.location != null">
+				and Location = #{parameter.location}
+			</if>
+			<if test="parameter.signTime != null">
+				and SignTime = #{parameter.signTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="parameter.attendType != null">
+				and AttendType = #{parameter.attendType}
+			</if>
+		</where>
+	</sql>
+	<!-- 查询数据 -->
+	<select id="querySignUser" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT *
+		<include refid="selectSignUserByQueryCriteriaSql" />
+		<if test="orderBy != null">
+			${orderBy}
+		</if>
+	</select>
+	<!-- 查询总数 -->
+	<select id="querySignUserCount" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="long">
+		SELECT count(tb.id)
+		<include refid="selectSignUserByQueryCriteriaSql" />
+	</select>
+	<!-- 根据id删除 -->
+	<delete id="deleteSignUserById" parameterType="string">
+		DELETE FROM
+		tb_sign_user WHERE SignID = #{signId} and CorpId = #{corpId}
+	</delete>
+	<!-- 更新记录 -->
+	<update id="updateSignUser" parameterType="SignUser">
+		UPDATE tb_sign_user
+		<set>
+			<if test="userId != null ">UserID = #{userId},</if>
+			<if test="location != null ">Location = #{location},</if>
+			<if test="signTime != null ">SignTime = #{signTime,jdbcType=TIMESTAMP},</if>
+			<if test="attendType != null ">AttendType = #{attendType},</if>
+			<if test="remark != null ">Remark = #{remark}</if>
+		</set>
+		<where>
+			<if test="id != null">ID = #{id}</if>
+			<if test="id != null"> and CorpId = #{corpId}</if>
+			<if test="signId != null">and SignID = #{signId}</if>
+			<if test="userId != null">and UserID = #{userId}</if>
+			<if test="attendType != null">and AttendType = #{attendType}</if>
+		</where>
+	</update>
+</mapper>

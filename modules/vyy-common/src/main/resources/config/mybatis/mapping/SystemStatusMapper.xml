@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.weixin.dao.SystemStatusMapper">
+
+	<resultMap id="result" type="SystemStatus">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="type" column="Type" />
+		<result property="status" column="Status" />
+		<result property="name" column="Name" />
+		<result property="value" column="Value" />
+		<result property="px" column="PX" jdbcType="INTEGER" />
+	</resultMap>
+
+	<insert id="addSystemStatus" parameterType="java.util.List">
+		INSERT INTO
+		tb_system_status
+		(ID,CorpId,Type,Status,Name,Value,PX)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.type},#{item.status},#{item.name},#{item.value},#{item.px})
+		</foreach>
+	</insert>
+
+	<insert id="addSystemStatusOnNullValue" parameterType="SystemStatus">
+		INSERT INTO tb_system_status
+		(
+			ID,
+			CorpId,
+			Type,
+			Status,
+			Name,
+			Value,
+			Px
+		)
+		SELECT 
+			#{id},
+			#{corpId},
+			#{type},
+			#{status},
+			#{name},
+			IF(Value IS NOT NULL, MAX(Value + 0) + 1, 1),
+			#{px}
+		FROM tb_system_status
+		WHERE Type = #{type} AND CorpId = #{corpId}
+	</insert>
+
+	<select id="getSystemStatus" parameterType="SystemStatus"
+		resultMap="result">
+		SELECT * FROM tb_system_status
+		<where>
+			<if test="id != null">
+				ID = #{id}
+			</if>
+			<if test="corpId != null and corpId != ''">
+				and CorpId = #{corpId}
+			</if>
+			<if test="type != null">
+				and Type = #{type}
+			</if>
+			<if test="name != null and name != ''">
+				and Name = #{name}
+			</if>
+			<if test="value != null and value != ''">
+				and Value = #{value}
+			</if>
+			<if test="status != null and status != ''">
+				and Status = #{status}
+			</if>
+		</where>
+		order by CorpId, Type, px
+	</select>
+
+	<select id="getSystemStatusByPage" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT * FROM tb_system_status
+		<where>
+			<if test="parameter.id != null">
+				ID = #{parameter.id}
+			</if>
+			<if test="parameter.corpId != null">
+				and CorpId = #{parameter.corpId}
+			</if>
+			<if test="parameter.type != null">
+				and Type = #{parameter.type}
+			</if>
+			<if test="parameter.name != null and parameter.name != ''">
+				and Name = #{parameter.name}
+			</if>
+			<if test="keyValMap.name != null and keyValMap.name != ''">
+				and Name LIKE CONCAT(CONCAT('%', #{keyValMap.name}), '%')
+			</if>
+		</where>
+		order by px
+	</select>
+
+	<delete id="deleteBySystemStatusId" parameterType="java.util.List">
+		DELETE FROM
+		tb_system_status WHERE ID in
+		<foreach collection="list" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<update id="updateSystemStatus" parameterType="SystemStatus">
+		UPDATE tb_system_status
+		<set>
+			<if test="type != null ">Type = #{type},</if>
+			<if test="status != null ">Status = #{status},</if>
+			<if test="name != null ">Name = #{name},</if>
+			<if test="value != null ">Value = #{value},</if>
+			<if test="px != null ">PX = #{px}</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+
+</mapper>

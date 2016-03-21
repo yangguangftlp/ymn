@@ -1,0 +1,1 @@
+<script type="text/javascript" src="js/foot.js"></script>

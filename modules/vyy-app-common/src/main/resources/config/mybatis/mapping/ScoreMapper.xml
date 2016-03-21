@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.ScoreMapper">
+
+	<resultMap id="result" type="Score">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="userId" column="UserID" />
+		<result property="userName" column="UserName" />
+		<result property="problemId" column="ProblemId" />
+		<result property="appraisalId" column="AppraisalId" />
+		<result property="raterId" column="RaterId" />
+		<result property="raterName" column="RaterName" />
+		<result property="score" column="Score" jdbcType="INTEGER" />
+		<result property="opinion" column="Opinion" />
+	</resultMap>
+
+	<!-- 添加请假记录 -->
+	<insert id="addScore" parameterType="java.util.List">
+		INSERT INTO tb_score
+		(ID,CorpId,UserID,UserName,ProblemId,AppraisalId,RaterId,RaterName,Score,Opinion)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.userId},#{item.userName},#{item.problemId},#{item.appraisalId},#{item.raterId},#{item.raterName},#{item.score,jdbcType=INTEGER},#{item.opinion})
+		</foreach>
+	</insert>
+
+	<!-- 分数查询 -->
+	<select id="getScore" parameterType="Score" resultMap="result">
+		SELECT * FROM tb_score
+		<where>
+			1 = 1
+			<if test="corpId != null">
+				AND CorpId = #{corpId}
+			</if>
+			<if test="id != null">
+				AND ID = #{id}
+			</if>
+			<if test="problemId != null">
+				AND ProblemId = #{problemId}
+			</if>
+			<if test="appraisalId != null">
+				AND AppraisalId = #{appraisalId}
+			</if>
+			<if test="raterId != null">
+				AND RaterId = #{raterId}
+			</if>
+			<if test="userId != null">
+				AND UserID = #{userId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 获取问题评分 根据评价人 评价id 对被评价者 -->
+	<select id="getProblemScore" parameterType="java.util.Map"
+		resultType="Map">
+		SELECT pt.ID as id, pt.AppraisalId as appraisalId,pt.Px as
+		px,pt.Quota
+		as quota,pt.Scores as scores,pt.Standard as standard,Score
+		as score,Opinion as opinion,CreateTime as createTime
+		from
+		tb_problem_template pt LEFT JOIN (SELECT * FROM tb_score WHERE
+		AppraisalID =#{appraisalId} AND UserId=#{userId} AND RaterId
+		=#{raterId} 
+		<if test="corpId != null and corpId != ''">
+			and CorpId = #{corpId}
+		</if>
+		) s on pt.ID = s.ProblemId
+		where pt.AppraisalId =
+		#{appraisalId}
+		<if test="corpId != null and corpId != ''">
+			and pt.CorpId = #{corpId}
+		</if>
+		ORDER BY pt.px asc
+	</select>
+
+	<!-- 获取评价中对应某个问题的评分统计 根据分数 -->
+	<select id="getProblemScoreStatistic" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT score.ProblemID as problemId,score.Score as
+		score,count(DISTINCT score.RaterId) as uCount FROM
+		tb_score score
+		WHERE
+		score.UserId =#{userId}
+		and score.AppraisalID =#{appraisalId}
+		and
+		score.Score &gt;0
+		<if test="problemId != null">
+			and score.ProblemID = #{problemId}
+		</if>
+		<if test="corpId != null">
+			and score.CorpId = #{corpId}
+		</if>
+		GROUP BY score.Score,score.ProblemID
+	</select>
+	<!-- 获取评价中对应某个问题的评分 根据分数 -->
+	<select id="getProblemOpinion" parameterType="java.util.Map"
+		resultType="Map">
+		SELECT score.ProblemID as problemId,score.RaterName as raterName,
+		score.Opinion as opinion FROM tb_score score
+		WHERE score.UserId
+		=#{userId}
+		and score.AppraisalID =#{appraisalId}
+		<if test="problemId != null">
+			and score.ProblemID = #{problemId}
+		</if>
+		<if test="corpId != null">
+			and score.CorpId = #{corpId}
+		</if>
+		and score.Score = 0
+		ORDER BY score.CreateTime desc
+	</select>
+</mapper>

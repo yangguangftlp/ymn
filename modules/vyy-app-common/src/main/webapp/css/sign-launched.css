@@ -1,0 +1,556 @@
+body{
+    background: #ebebeb;
+}
+
+/* 缁涙儳鍩屾稉濠氼暯閵嗕礁绱戞慨瀣闂傛番锟界紒鎾存将閺冨爼妫块弽宄扮础Start */
+.signList{
+    padding: 0 15px 0 10px;
+    border-bottom: 1px solid #aeaeae;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    background: #fff;
+    position: relative;
+}
+/* .signList:first-child{
+    border-top: 1px solid #aeaeae;
+    margin-top: 10px;
+} */
+.signListLeft{
+    width: 5.5em;
+    float: left;
+    color: #000;
+    margin-left: -100%;
+    position: relative;
+    z-index: 1000;
+    font-size: 16px;
+}
+.signListRight{
+    float: left;
+    width: 100%;
+}
+.signListRight input{
+    outline: none;
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    padding-left: 5.5em;
+    color: #787878;
+    box-sizing: border-box;
+    line-height: 30px;
+    background: #fff;
+    position: relative;
+    z-index: 1000;
+    font-size: 16px;
+}
+.controls .add-on{
+    position: absolute;
+    top: 15px;
+    right: 0px;
+    font-size: 19px;
+    z-index: 1000;
+}
+/* 缁涙儳鍩屾稉濠氼暯閵嗕礁绱戞慨瀣闂傛番锟界紒鎾存将閺冨爼妫块弽宄扮础End */
+
+/* 娣囶喗鏁糱ootstrap  Start */
+form{
+    margin: 0;
+}
+label{
+    margin-bottom: 0px
+}
+input#signTheme {
+    margin-top: 0 !important;
+}
+.input-append .add-on,
+.input-prepend .add-on{
+    display: inline-block;
+    width: auto;
+    height: 20px;
+    /* min-width: 16px; */
+    padding: 0;
+    font-size: 19px;
+    font-weight: normal;
+    line-height: 20px;
+    text-align: center;
+    text-shadow: 0 0px 0 #ffffff;
+    background-color: #fff;
+    border: 0px;
+}
+.input-append, .input-prepend {
+    white-space: normal;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 0;
+}
+@media (max-width: 767px){
+    body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+.datetimepicker table tr td.active.active,
+.datetimepicker table tr td.active:hover.active,
+.datetimepicker table tr td span.active.active,
+.datetimepicker table tr td span.active:hover.active{
+    background: #26c6da;
+}
+.datetimepicker table tr td span {
+    display: block;
+    width: 23%;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    margin: 1%;
+    cursor: pointer;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    line-height: 40px;
+}
+.table-condensed .prev i{
+    background: url("../images/csg.png") no-repeat 0 -53px;
+    width: 15px;
+    height: 15px;
+}
+.table-condensed .next i{
+    background: url("../images/csg.png") no-repeat 0 -28px;
+    width: 15px;
+    height: 15px;
+}
+
+
+/* 娣囶喗鏁糱ootstrap  End */
+
+/* 缁涙儳鍩屾禍鍝勬喅閸掓銆僑tart */
+.signInPeopleTit{
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+.signInPeopleList{
+    background: #fff;
+    padding: 16px 20px 16px 0px;
+}
+.signInPeopleList *{
+    vertical-align: middle;
+}
+.signInPeopleList>div{
+    display: inline-block;
+}
+.addedPeopleList div{
+    text-align: center;
+    display: inline-block;
+    width: 49px;
+    margin-left: 20px;
+    position: relative;
+}
+.addedPeopleList div img{
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 10px;
+}
+/* .addedPeopleList div i{ */
+/*     position: absolute; */
+/*     top: 0; */
+/*     right: -7px; */
+/*     width: 17px; */
+/*     height: 17px; */
+/*     background: url("../images/cancelPeople.png") no-repeat; */
+/*     background-size: 17px 17px; */
+/* } */
+.addedPeopleList div span{
+    font-size: 14px;
+}
+.addPeople{
+    margin-left: 20px;
+}
+.addPeople img{
+    width: 36px;
+    height: 36px;
+}
+/* 缁涙儳鍩屾禍鍝勬喅閸掓銆僂nd */
+
+/* 閸欐垼鎹ｇ粵鎯у煂閹稿鎸砈tart */
+.signLaunchedBtn{
+    outline: none;
+    height: 42px;
+    width: 100%;
+    border-left: 10px solid #ebebeb;
+    border-right: 10px solid #ebebeb;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 42px;
+    color: #fff;
+    background: #26c6da;
+    font-size: 18px;
+}
+/* 閸欐垼鎹ｇ粵鎯у煂閹稿鎸矱nd */
+
+/* 閸欐垼鎹ｉ幋鎰濡剝锟藉鍝爐art */
+.modalSignLaunched{
+    background: rgba(0,0,0,0.8);
+    font-size: 14px;
+    color: #fff;
+    width: 134px;
+    height: 94px;
+    text-align: center;
+    line-height: 94px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 2000;
+    top: 100px
+}
+/* 閸欐垼鎹ｉ幋鎰濡剝锟藉鍜祅d */
+
+/* 閹兼粎鍌⊿tart */
+.membersListWarp{
+    margin: auto 4px;
+    position: relative;
+    z-index: 5000;
+}
+.searchPeople{
+    height: 28px;
+    line-height: 28px;
+    margin: 6px auto;
+    border-radius: 8px;
+    background: #fff;
+    color: #787878;
+    font-size: 14px;
+    text-align: center;
+}
+.searchBox{
+    height: 28px;
+    line-height: 28px;
+    margin: 6px auto;
+    color: #787878;
+    font-size: 14px;
+    width: 100%;
+    position: relative;
+}
+.searchBox label{
+    height: 28px;
+    line-height: 28px;
+    border-radius: 8px;
+    background: #fff;
+    margin-right: 3.5em;
+    position: relative;
+}
+.searchBox i.fa-search{
+    margin-left: 5px;
+    line-height: 28px;
+}
+.searchBox input{
+    margin-bottom: 0;
+    width: 80%;
+}
+.searchBox .fa-times-circle{
+    position: absolute;
+    right: 5px;
+    line-height: 28px;
+    font-size: 16px;
+}
+.searchBox button{
+    position: absolute;
+    top: 0;
+    right: 0.1em;
+    background: #26a69a;
+    color: #fff;
+    border-radius: 4px;
+    width: 3em;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+}
+
+/* 閹兼粎鍌‥nd */
+
+/* 闁劌鍨庨崚鍡欒Start */
+.peopleList{
+    position:relative;
+}
+.peopleList>input{
+    width:100%;
+    height:40px;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.membersList{
+    border: 2px solid #fff;
+    margin-bottom: 100px;
+}
+.firstTit{
+    width: 100%;
+    height: 40px;
+    background: #cbe0f0;
+    line-height: 40px;
+    position: relative;
+    padding-left: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-bottom: 1px solid #aeaeae;
+    font-size: 16px;
+}
+.firstTit input{
+    appearance:button;
+    -webkit-appearance:button;
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    opacity: 1;
+    margin-top: 0;
+    border: 0;
+    outline: none !important;
+}
+.firstTit input:before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: #dedfe0;
+    width: 100%;
+    height: 40px;
+}
+.firstTit input:checked+i{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+/*.firstTit img{
+    position: absolute;
+    right: 10px;
+    transition: all 0.5s ease;
+}*/
+.firstTit i{
+    position: absolute;
+    right: 10px;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    color: #777;
+    font-size: 24px;
+    top: 8px;
+}
+.firstCon,.secondCon,.thirdCon{
+    display: none;
+}
+.firstCon .peopleList{
+    padding-left: 10px;
+}
+.secondTit{
+    padding-left: 25px;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    background: #f6dec9;
+    border-bottom: 1px solid #aeaeae;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.secondTit input{
+    appearance:button;
+    -webkit-appearance:button;
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    opacity: 0;
+    margin-top: 0;
+    border: 0;
+    outline: none !important;
+}
+.secondTit input:before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: #dedfe0;
+    width: 100%;
+    height: 40px;
+}
+.secondTit input:checked+i{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+.secondTit i{
+    position: absolute;
+    right: 10px;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    color: #777;
+    font-size: 24px;
+    top: 8px;
+}
+.secondCon .peopleList{
+    padding-left: 25px;
+}
+.thirdTit{
+    padding-left: 40px;
+    width: 100%;
+    height: 40px;
+    background: #f9e9db;
+    line-height: 40px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #aeaeae;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.thirdTit input{
+    appearance:button;
+    -webkit-appearance:button;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    opacity: 0;
+    margin-top: 0;
+    border: 0;
+    outline: none !important;
+}
+.thirdTit input:before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: #dedfe0;
+    width: 100%;
+    height: 40px;
+}
+.thirdTit input:checked+i{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+.thirdTit i{
+    position: absolute;
+    right: 10px;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    color: #777;
+    font-size: 24px;
+    top: 8px;
+}
+.thirdCon{
+    /*padding-left: 40px;*/
+}
+.thirdCon .peopleList{
+    padding-left: 40px;
+}
+/* 闁劌鍨庨崚鍡欒End */
+
+
+/* 娴滃搫鎲抽崚妤勩�Start */
+.peopleIcon img{
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+.peopleList label div:nth-child(2) span,
+.peopleCheckbox label div:nth-child(2) span{
+    display: block;
+}
+.peopleList .peopleName{
+    font-size: 16px;
+}
+.peopleList .peopleZC{
+    font-size: 12px;
+}
+.peopleList{
+    border-bottom: 1px solid #aeaeae;
+    padding: 8px 0;
+}
+.peopleList label>div{
+    display: inline-block;
+}
+.peopleCheckbox input,
+.peopleList input{
+    opacity: 0;
+}
+.peopleCheckbox label,
+.peopleList label{
+    display: inline-block;
+    padding-left: 20px;
+    cursor:pointer;
+}
+.peopleList label *{
+    vertical-align: middle;
+}
+/* states */
+.peopleList label{
+    background:url("../images/unchecked.png") 0px center no-repeat;
+    background-size: 18px 18px;
+    width: 90%;
+}
+.peopleList label.checked{
+    background:url("../images/checked.gif") 0px center no-repeat;
+    background-size: 18px 18px;
+}
+.peopleCheckbox label{
+    background:url("../images/unchecked.png") 0px center no-repeat;
+    background-size: 18px 18px;
+}
+.peopleCheckbox label.checked{
+    background:url("../images/checked.gif") 0px center no-repeat;
+    background-size: 18px 18px;
+}
+
+.members{
+    background: #fff;
+}
+.membersListBtn{
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 40px;
+    z-index: 4000;
+    background: #ebebeb;
+}
+/* .membersListBtn button{
+    height: 38px;
+    color: #fff;
+    font-size: 17px;
+    text-align: center;
+    line-height: 38px;
+    width: 145px;
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0 5px;
+} */
+.membersListBtn button:first-child{
+    background: #d1ccb4;
+}
+.membersListBtn button:nth-child(2){
+    background: #26a69a;
+    margin-left: 16px;
+}
+/* 娴滃搫鎲抽崚妤勩�End */
+/* 閻楀牊娼堥幍锟芥箒 */
+body > div[class*="arp"]{
+    margin-bottom: 40px;
+}
+footer.copyright{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    position: fixed;
+    bottom: 0px;
+    background: #ebebeb;
+    z-index: 5000;
+}

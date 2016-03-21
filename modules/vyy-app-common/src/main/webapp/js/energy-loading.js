@@ -1,0 +1,6 @@
+$(function(){
+	$.fn.loading = function(){
+		
+		
+	};
+});

@@ -1,0 +1,22 @@
+
+textarea#content {
+    resize: none;
+    min-height: 100px;
+    line-height: 36px;
+    color: #787878;
+    font-size: 16px;
+    width: 100% !important;
+    padding-right: 15px;
+    box-sizing: border-box;
+    overflow: visible;
+}
+.recordList{
+    background: #fff;
+    border-top: 1px solid #aeaeae;
+    margin-top: 26px;
+}
+.recordList>ul{
+    position: relative;
+}
+
+

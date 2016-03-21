@@ -1,0 +1,186 @@
+.warp>header {
+    height: 76px;
+     line-height: 76px;
+    text-align: center;
+    background: #26a69a;
+    color: #fff;
+    border-top: 1px solid #aeaeae;
+    font-size: 18px;
+}
+.feedbackList{
+    padding: 0px 15px 10px 10px;
+    border-bottom: 1px solid #aeaeae;
+    font-size: 16px;
+    background: #fff;
+    position: relative;
+    line-height: 36px;
+    font-size: 16px;
+    background: #fff;
+    position: relative;
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    box-align: start;
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    box-direction: reverse;
+    -webkit-box-direction: reverse;
+    display: flex;
+    display: -webkit-flex;
+    align-items: flex-start;
+    -webkit-align-items: flex-start;
+}
+.feedbackList .listRight textarea{
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+    font-size: 16px;
+    padding-top: 8px;
+}
+/* 反馈信息Start */
+.feedback{
+    font-size: 16px;
+    padding: 11px 15px 11px 10px;
+    position: relative;
+}
+
+.feedback>i{
+    font-size: 19px;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    z-index: 2000;
+}
+.feedbackCon{
+    background: #fff;
+    font-size: 14px;
+    line-height: 24px;
+}
+.feedbackCon{
+    padding: 5px 10px 20px 15px;
+    max-height: 144px;
+    overflow-y: auto;
+}
+.feedbackCon>div{
+    border-bottom: 1px solid #aeaeae;
+    padding-bottom: 3px;
+}
+.feedbackCon>div>span{
+    display: block;
+    line-height: 24px;
+    text-indent: 2em;
+}
+.feedbackCon b{
+    color: #65A2FA;
+    font-weight: 400;
+}
+.departmentFeedbackCon{
+    position: relative;
+}
+.departmentFeedbackCon>div{
+    padding: 5px 10px 0px;
+}
+.departmentFeedbackCon>div:last-child{
+    padding-bottom: 5px !important;
+}
+#commentFooter{
+    position: relative;
+    padding: 10px 15px 10px 15px;
+    background: #fff;
+}
+#commentFooter input{
+    box-sizing: content-box;
+    width: 80%;
+    border: 1px solid #aeaeae;
+    border-radius: 4px;
+    height: 24px;
+    line-height: 24px;
+    padding: 4px 0 4px 10px;
+}
+#commentFooter img{
+    position: absolute;
+    top: 12px;
+    right: 15px;
+}
+/* 反馈信息End */
+/* 排行榜 */
+.rankingHeader{
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #FF6091;
+    /*border-top: 1px solid #aeaeae;*/
+    border-bottom: 1px solid #aeaeae;
+    font-size: 18px;
+    font-weight: 600;
+}
+.rankingList *{
+    vertical-align: middle;
+}
+.rankingList{
+    padding: 7px 15px 7px 10px;
+    background: #fff;
+    border-bottom: 1px solid #aeaeae;
+    /*display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: start;
+    -webkit-box-align: center;*/
+}
+.rankingList>span{
+    display: inline-block;
+}
+.feedbackNumIcon{
+    width: 23%;
+}
+.feedbackNumIcon>i{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 40px;
+    text-align: center;
+    font-style: normal;
+    margin: 5px 0 5px 5px;
+}
+.feedbackNumIcon>.topIcon{
+    background: #FF6091;
+}
+.feedbackNumIcon>.lastIcon{
+    background: #26C6DA;
+}
+.biofeedback{
+    width: 25%;
+    color: #26a69a;
+    font-size: 16px;
+    font-weight: 600;
+}
+.feedbackNum{
+    width: 48%;
+    color: #787878;
+    font-size: 14px;
+}
+/* 排行导航 */
+ul.usageRecord{
+    height: 50px;
+}
+ul.usageRecord>li {
+    height: 34px;
+    line-height: 34px;
+}
+ul.usageRecord>li:first-child{
+    color: #FF6091;
+    font-weight: bold;
+}
+ul.usageRecord>li:nth-child(2){
+    color: #26C6DA;
+    font-weight: bold;
+}
+ul.usageRecord .line{
+    top: 49px;
+}
+.navSelected{
+    color: inherit;
+}

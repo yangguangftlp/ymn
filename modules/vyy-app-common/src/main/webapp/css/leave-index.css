@@ -1,0 +1,259 @@
+/* 签到主题、开始时间、结束时间样式Start */
+
+.formList{
+    padding: 0 15px 0 10px;
+    border-bottom: 1px solid #aeaeae;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    background: #fff;
+    position: relative;
+}
+.formList:first-child{
+    border-top: 1px solid #aeaeae;
+    margin-top: 10px;
+}
+.listLeft{
+    width: 5em;
+    float: left;
+    color: #000;
+    margin-left: -100%;
+    position: relative;
+    z-index: 1000;
+}
+.listRight{
+    float: left;
+    width: 100%;
+}
+.listRight input,
+.listRight select{
+    outline: none;
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    padding-left: 5.5em;
+    color: #787878;
+    box-sizing: border-box;
+    line-height: 30px;
+    background: #fff;
+    position: relative;
+    z-index: 1000;
+}
+.listRight select{
+    border: 0;
+}
+.controls .add-on{
+    position: absolute;
+    top: 15px;
+    right: 0px;
+    font-size: 19px;
+    z-index: 1000;
+}
+/* 请假说明Start */
+.leaveExplain{
+    background: #ffca7c;
+}
+.leaveExplain .listRight span{
+    color: #fff;
+}
+.leaveExplain input{
+    background: #ffca7c;
+    color: #fff;
+}
+/* 请假说明End */
+/* 签到主题、开始时间、结束时间样式End */
+/* 修改bootstrap  Start */
+form{
+    margin: 0;
+}
+label{
+    margin-bottom: 0px
+}
+.input-append .add-on,
+.input-prepend .add-on{
+    display: inline-block;
+    width: auto;
+    height: 20px;
+    /* min-width: 16px; */
+    padding: 0;
+    font-size: 19px;
+    font-weight: normal;
+    line-height: 20px;
+    text-align: center;
+    text-shadow: 0 0px 0 #ffffff;
+    background-color: #fff;
+    border: 0px;
+}
+.input-append, .input-prepend {
+    white-space: normal;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 0;
+}
+@media (max-width: 767px){
+    body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+.datetimepicker table tr td.active.active,
+.datetimepicker table tr td.active:hover.active,
+.datetimepicker table tr td span.active.active,
+.datetimepicker table tr td span.active:hover.active{
+    background: #26c6da;
+}
+.datetimepicker table tr td span {
+    display: block;
+    width: 23%;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    margin: 1%;
+    cursor: pointer;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    line-height: 40px;
+}
+.table-condensed .prev i{
+    background: url("../images/csg.png") no-repeat 0 -53px;
+    width: 15px;
+    height: 15px;
+}
+.table-condensed .next i{
+    background: url("../images/csg.png") no-repeat 0 -28px;
+    width: 15px;
+    height: 15px;
+}
+
+
+/* 修改bootstrap  End */
+
+/*/!* 签到人员列表Start *!/
+.selectPeopleTit{
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+.selectPeopleList{
+    background: #fff;
+    padding: 0px 20px 10px 0px;
+}
+.selectPeopleList div{
+    text-align: center;
+    display: inline-block;
+    width: 49px;
+    margin: 18px 0 0 20px;
+    position: relative;
+}
+.selectPeopleList div img{
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 10px;
+}
+.selectPeopleList div i{
+    position: absolute;
+    top: 0;
+    right: -7px;
+    width: 17px;
+    height: 17px;
+    background: url("../images/cancelPeople.png") no-repeat;
+    background-size: 17px 17px;
+}
+.selectPeopleList div span{
+    font-size: 14px;
+}
+.addPeople{
+
+}
+.addPeople img{
+    width: 36px;
+    height: 36px;
+}
+/!* 签到人员列表End *!/*/
+
+/* 签到人员列表Start */
+.signInPeopleTit{
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+.signInPeopleList{
+    background: #fff;
+    padding: 16px 20px 16px 0px;
+}
+.signInPeopleList *{
+    vertical-align: middle;
+}
+.signInPeopleList>div{
+    display: inline-block;
+}
+.addedPeopleList div{
+    text-align: center;
+    display: inline-block;
+    width: 49px;
+    margin-left: 20px;
+    position: relative;
+}
+.addedPeopleList div img{
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 10px;
+}
+.addedPeopleList div i{
+    position: absolute;
+    top: 0;
+    right: -7px;
+    width: 17px;
+    height: 17px;
+    background: url("../images/cancelPeople.png") no-repeat;
+    background-size: 17px 17px;
+}
+.addedPeopleList div span{
+    font-size: 14px;
+}
+.addPeople{
+    margin-left: 20px;
+}
+.addPeople img{
+    width: 36px;
+    height: 36px;
+}
+/* 签到人员列表End */
+
+/* 发起签到按钮Start */
+.launchedBtn{
+    outline: none;
+    height: 30px;
+    width: 100%;
+    border-left: 10px solid #ebebeb;
+    border-right: 10px solid #ebebeb;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    background: #26c6da;
+}
+/* 发起签到按钮End */
+
+/* 发起成功模态框Start */
+.modalLaunched{
+    background: rgba(0,0,0,0.8);
+    font-size: 14px;
+    color: #fff;
+    width: 134px;
+    height: 94px;
+    text-align: center;
+    line-height: 94px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 2000;
+    top: 100px
+}
+/* 发起成功模态框End */

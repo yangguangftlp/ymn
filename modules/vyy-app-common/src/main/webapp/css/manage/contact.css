@@ -1,0 +1,274 @@
+/*ͨѶ¼ 2015.11.09 zedd*/
+* {
+    box-sizing: border-box;
+}
+body > div.membersListWarp {
+    background: #fff none repeat scroll 0 0;
+    font-size: 14px;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.membersListWarp .membersList {
+    border: medium none;
+    margin: 0;
+}
+.membersListWarp .contactSearch {
+    background: #eee none repeat scroll 0 0;
+    border-bottom: 1px solid #ddd;
+    height: 46px;
+    line-height: 46px;
+    position: relative;
+}
+.membersListWarp .contactSearch i {
+    color: #888;
+    display:inline-block;
+    margin: 15px 10px 0 16px;
+    position: relative;
+}
+.membersListWarp .contactSearch input[type="text"] {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    box-sizing: border-box;
+    height: 46px;
+    left: 0;
+    margin-left: 5px;
+   box-shadow: none;
+    padding-left: 30px;
+    position: absolute;
+    top: 0;
+    transition: all 0.1s ease-in 0s;
+    width: 100%;
+}
+.membersListWarp .contactSearch input[type="text"]:focus{box-shadow:none}
+.membersListWarp .contactSearch input[type="submit"] {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    box-sizing: border-box;
+    color: #177ee5;
+    display: none;
+    height: 46px;
+    line-height: 46px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    width: 40px;
+    z-index: 99;
+}
+.membersListWarp .depList {
+    margin: 10px;
+    padding: 0;
+}
+.membersListWarp .depList ul {
+    display: block;
+    width: 100%;
+}
+.membersListWarp .depList li {
+    display: none;
+    overflow: hidden;
+    position: relative;
+}
+.membersListWarp .depList li, .depList li a {
+    color: #333;
+}
+.membersListWarp .depList > li {
+    display: block;
+}
+.membersListWarp .depList .dep {
+    border-bottom: 1px solid #dedede;
+    height: 50px;
+    line-height: 50px;
+    overflow: hidden;
+}
+.membersListWarp .depList i.fa-caret-right, .depList i.fa-caret-down {
+    color: #666;
+    margin-right: 5px;
+}
+.membersListWarp .depList a.getIn {
+    position: absolute;
+    height:100%;
+    right: 0;
+    text-align: center;
+    width: 40px;
+}
+
+.membersListWarp .depList a.getIn i {
+    color: #666;
+    margin-top:15px;
+    cursor:pointer !important;
+}
+.membersListWarp .depList .noChild .dep {
+    padding-left: 10px;
+}
+.membersListWarp .depList .depName {
+    float: left;
+    width: 60%;
+}
+.membersListWarp .searchResult {
+    background: rgba(255, 255, 255, 1) none repeat scroll 0 0;
+    height: 100%;
+    width: 100%;
+}
+.membersListWarp .searchResult .btnTool {
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+}
+.membersListWarp .searchResult .btnTool a {
+    display: inline-block;
+    margin: 6px 0 0 20px;
+    text-align: center;
+    width: 100px;
+}
+.membersListWarp .btnTool .checkAll {
+    color: #00a795;
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+    font-size: 16px;
+    margin: 14px 0 0 16px;
+    position: relative;
+}
+.membersListWarp .btnTool .checkAll i {
+    color: #00a795;
+    font-size: 20px;
+    margin-right: 2px;
+    vertical-align: -2px;
+}
+.membersListWarp .btnTool input[type="checkbox"] {
+    margin: 0 5px 0 0;
+    opacity: 0;
+    position: absolute;
+    vertical-align: middle;
+}
+.membersListWarp .depPeopleList {
+    box-sizing: border-box;
+    min-height: 350px;
+/*     height: 350px; */
+/*     overflow-x: hidden; */
+/*     overflow-y: auto; */
+}
+.membersListWarp .memberList {
+    border: medium none;
+    margin: 0 10px 0 16px;
+    padding: 0;
+}
+.membersListWarp .memberList .people {
+    cursor: pointer;
+}
+.membersListWarp .memberList li {
+    border-bottom: 1px solid #dedede;
+    list-style: outside none none;
+}
+.membersListWarp .memberList li .people {
+    padding: 10px 0;
+}
+.membersListWarp .memberList .head {
+    background: #eee none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #999;
+    float: left;
+    font-size: 20px;
+    height: 38px;
+    line-height: 38px;
+    overflow: hidden;
+    text-align: center;
+    width: 38px;
+}
+.membersListWarp .memberList .head img {
+    max-width: 100%;
+}
+.membersListWarp .memberList .name {
+    font-size: 14px;
+    margin-left: 75px;
+}
+.membersListWarp .memberList .pos {
+    color: #888;
+    font-size: 12px;
+    height: 20px;
+    margin-left: 75px;
+}
+.membersListWarp .memberList .ckBox {
+    float: left;
+    margin: 8px 10px 0 0;
+    position: relative;
+}
+.membersListWarp .memberList .ckBox i.fa-circle-o {
+    color: #888;
+}
+.membersListWarp .memberList .ckBox i.fa-check-circle {
+    color: #00a795;
+}
+.membersListWarp .memberList .ckBox input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+}
+.membersListWarp .customHead {
+    background: #eee none repeat scroll 0 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 36px;
+    padding-left: 15px;
+}
+.membersListWarp .load {
+    background: rgba(255, 255, 255, 0.8) none repeat scroll 0 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+@keyframes rotate {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+.membersListWarp .load i {
+    animation: 3s linear 0s normal none infinite running rotate;
+    color: #00a795;
+    font-size: 30px;
+    left: 50%;
+    margin-left: -15px;
+    margin-top: -15px;
+    position: absolute;
+    top: 50%;
+}
+.membersListWarp .noResult {
+    color: #999;
+    font-size: 14px;
+    margin: 20px 0;
+    text-align: center;
+}
+.membersListWarp .membersListBtn {
+    bottom: 40px;
+    padding: 10px 0;
+}
+.deplistWrap {
+		min-height: 350px;
+/*     height: 350px; */
+/*     overflow-x: hidden; */
+/*     overflow-y: auto; */
+}
+
+.dropright-caret {
+    border-color: transparent transparent transparent #333;
+    border-style: solid solid solid dashed;
+    border-width: 4px;
+    display: inline-block;
+    height: 0;
+    margin-right: 2px;
+    vertical-align: middle;
+    width: 0;
+}
+.depList .caret{vertical-align:middle;margin-left:2px;}
+.membersListWarp .memberList i {
+   	font-size:16px;
+    vertical-align: middle;
+}
+.membersListWarp .memberList i.icon-check{}

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.FeedbackMapper">
+
+	<resultMap id="result" type="Feedback">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="userId" column="UserID" />
+		<result property="userName" column="UserName" />
+		<result property="problem" column="Problem" />
+		<result property="suggest" column="Suggest" />
+		<result property="status" column="Status" />
+		<result property="createTime" column="CreateTime" />
+		<result property="endTime" column="EndTime" />
+	</resultMap>
+
+	<insert id="addFeedback" parameterType="java.util.List">
+		INSERT INTO tb_feedback
+		(ID,CorpId,UserID,UserName,Problem,Suggest,Status,CreateTime)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.userId},#{item.userName},#{item.problem},#{item.suggest},#{item.status},#{item.createTime})
+		</foreach>
+	</insert>
+
+	<!-- 系统反馈 -->
+	<select id="getFeedback" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT * FROM tb_feedback tb_fb
+		<where>
+			1 = 1
+			<if test="parameter.status != null and parameter.status != ''">
+				and status = #{parameter.status}
+			</if>
+			<if test="parameter.corpId != null and parameter.corpId != ''">
+				and CorpId  = #{parameter.corpId }
+			</if>
+			<if test="parameter.userId != null and parameter.userId != ''">
+				and UserId  = #{parameter.userId }
+			</if>
+			<if test="keyValMap.startTime != null">
+				and CreateTime &gt;=#{keyValMap.startTime}
+			</if>
+			<if test="keyValMap.endTime != null">
+				and CreateTime &lt;=#{keyValMap.endTime}
+			</if>
+			<if test="keyValMap.operationType != null and keyValMap.operationType != ''">
+				<if test="keyValMap.operationType == 0">
+					and EndTime is null
+				</if>
+				<if test="keyValMap.operationType == 1">
+					and EndTime is not null
+				</if>
+			</if>
+		</where>
+		<if test="keyValMap.orderBy != null">
+		   order By ${keyValMap.orderBy}
+		</if>
+	</select>
+	<!-- 应用排行 -->
+	<select id="getFeedbackTop" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="Map">
+		select tb1.UserID,tb1.UserName,tb1.Total,
+		case 
+		WHEN @prevRank = Total then @curRank
+		WHEN @prevRank := Total then @curRank := @curRank +1
+		end as Rank
+		from (
+		SELECT tb_fb.UserID,tb_fb.UserName,count(tb_fb.ID) as Total FROM tb_feedback tb_fb
+		WHERE 1 = 1
+		<if test="keyValMap.corpId != null and keyValMap.corpId != ''">
+			and CorpId = #{keyValMap.corpId}
+		</if>
+		GROUP BY tb_fb.UserID
+		) tb1,(select @curRank:=0,@prevRank:=null) tb2
+		ORDER BY Total desc
+	</select>
+
+	<!-- 根据id获取反馈信息 -->
+	<select id="getFeedbackById" parameterType="String" resultMap="result">
+		SELECT * FROM tb_feedback tb_fb where tb_fb.id = #{id}
+	</select>
+
+	<!-- 更新反馈信息 -->
+	<update id="updateFeedback" parameterType="Feedback">
+		UPDATE tb_feedback
+		<set>
+			<if test="status != null ">Status = #{status},</if>
+			<if test="endTime != null ">EndTime = #{endTime}</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+
+</mapper> 

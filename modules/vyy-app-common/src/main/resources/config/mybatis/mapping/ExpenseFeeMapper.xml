@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.ExpenseFeeMapper">
+
+	<resultMap id="result" type="ExpenseFee">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="expenseId" column="ExpenseID" />
+		<result property="category" column="Category" />
+		<result property="money" column="Money" jdbcType="FLOAT" />
+	</resultMap>
+
+	<insert id="addExpenseFee" parameterType="java.util.List">
+		INSERT INTO tb_expensefee
+		(ID,CorpId,ExpenseID,Category,Money)VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.id},#{item.corpId},#{item.expenseId},#{item.category},#{item.money,jdbcType=FLOAT})
+		</foreach>
+	</insert>
+
+	<select id="getExpenseFee" parameterType="ExpenseFee" resultMap="result">
+		SELECT * FROM tb_expensefee
+		<where>
+			1 = 1
+			<if test="id != null ">
+				and ID = #{id}
+			</if>
+			<if test="corpId != null ">
+				and CorpId = #{corpId}
+			</if>
+			<if test="expenseId != null">
+				and ExpenseID = #{expenseId}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteExpenseFeeById" parameterType="java.util.List">
+		DELETE FROM tb_expensefee WHERE ID in 
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteExpenseFeeByExpenseId" parameterType="java.util.List">
+		<if test="list!=null">
+			DELETE FROM tb_expensefee WHERE tb_expensefee.ExpenseID in 
+			<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+
+	<update id="updateExpenseFee" parameterType="Expense">
+		UPDATE tb_expensefee
+		<set>
+			<if test="userId != null ">UserID = #{userId},</if>
+			<if test="userName != null ">UserName = #{userName},</if>
+			<if test="theme != null ">Theme = #{theme}</if>
+			
+		</set>
+		WHERE ID = #{id}
+	</update>
+
+</mapper>

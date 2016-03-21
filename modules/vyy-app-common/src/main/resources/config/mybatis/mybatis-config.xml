@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<!-- 配置实体及别名 扫描该包下所有实体 并以类名作为别名 -->
+		<package name="com.vyiyun.common.weixin.entity" />
+	</typeAliases>
+</configuration>

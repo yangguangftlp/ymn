@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.ApprovalMapper">
+
+	<resultMap id="result" type="Approval">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="userId" column="UserID" />
+		<result property="userName" column="UserName" />
+		<result property="flowName" column="FlowName" />
+		<result property="department" column="Department" />
+		<result property="content" column="Content" />
+		<result property="remark" column="Remark" />
+		<result property="contractNumber" column="ContractNumber" />
+		<result property="partner" column="Partner" />
+		<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP" />
+		<result property="flowType" column="FlowType" />
+		<result property="endTime" column="EndTime" jdbcType="TIMESTAMP" />
+		<result property="status" column="Status" />
+		<result property="cstatus" column="CStatus" />
+	</resultMap>
+
+	<insert id="addApproval" parameterType="java.util.List">
+		INSERT INTO tb_approval
+		(ID,CorpId,UserID,UserName,FlowName,Department,Content,Remark,ContractNumber,Partner,CreateTime,FlowType,EndTime,Status)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.userId},#{item.userName},#{item.flowName},#{item.department},#{item.content},#{item.remark},#{item.contractNumber},#{item.partner},#{item.createTime,jdbcType=TIMESTAMP},#{item.flowType},#{item.endTime,jdbcType=TIMESTAMP},#{item.status})
+		</foreach>
+	</insert>
+	<!-- 获取审批信息 -->
+	<select id="getApproval" resultMap="result">
+		SELECT * FROM tb_approval
+		<where>
+			<if test="id != null ">
+				ID = #{id},
+			</if>
+			<if test="corpId != null ">
+				CorpId = #{corpId},
+			</if>
+			<if test="userId != null">
+				and UserID = #{userId}
+			</if>
+			<if test="userName != null">
+				and UserName = #{userName}
+			</if>
+			<if test="flowName != null">
+				and FlowName = #{flowName}
+			</if>
+			<if test="flowType != null">
+				and FlowType = #{flowType}
+			</if>
+			<if test="department != null">
+				and Department = #{department}
+			</if>
+			<if test="content != null">
+				and Content = #{content}
+			</if>
+			<if test="remark != null">
+				and Remark = #{remark}
+			</if>
+			<if test="contractNumber != null">
+				and ContractNumber = #{contractNumber}
+			</if>
+			<if test="status != null">
+				and Status = #{status}
+			</if>
+			<if test="partner != null">
+				and Partner = #{partner}
+			</if>
+			<if test="createTime != null">
+				and CreateTime = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+	<!-- 根据id获取审批信息 -->
+	<select id="getApprovalById" parameterType="string" resultMap="result">
+		SELECT * FROM tb_approval where ID = #{id}
+	</select>
+	<!-- 分页条件sql -->
+	<sql id="selectApprovalByQueryCriteriaSql">
+		FROM tb_approval tb
+		<where>
+			1 = 1
+			<if test="parameter.id != null and parameter.id != ''">
+				and ID = #{parameter.id}
+			</if>
+			<if test="parameter.corpId != null and parameter.corpId != ''">
+				and CorpId = #{parameter.corpId}
+			</if>
+			<if test="parameter.userId != null and parameter.userId != ''">
+				and UserID = #{parameter.userId}
+			</if>
+			<if test="parameter.userName != null and parameter.userName != ''">
+				and UserName = #{parameter.userName}
+			</if>
+			<if test="parameter.flowName != null and parameter.flowName != ''">
+				and FlowName = #{parameter.flowName}
+			</if>
+			<if test="parameter.flowType != null and parameter.flowType != ''">
+				and FlowType = #{parameter.flowType}
+			</if>
+			<if test="parameter.department != null and parameter.department != ''">
+				and Department = #{parameter.department}
+			</if>
+			<if test="parameter.content != null and parameter.content != ''">
+				and Content = #{parameter.content}
+			</if>
+			<if test="parameter.remark != null and parameter.remark != ''">
+				and Remark = #{parameter.remark}
+			</if>
+			<if test="parameter.contractNumber != null and parameter.contractNumber != ''">
+				and ContractNumber = #{parameter.contractNumber}
+			</if>
+			<if test="parameter.status != null and parameter.status != ''">
+				and Status = #{parameter.status}
+			</if>
+			<if test="parameter.partner != null and parameter.partner != ''">
+				and Partner = #{parameter.partner}
+			</if>
+			<if test="parameter.createTime != null">
+				and CreateTime =
+				#{parameter.createTime,jdbcType=TIMESTAMP}
+			</if>
+			<!-- 根据operationType判断审批记录状态 -->
+			<if test="keyValMap.operationType != null and keyValMap.operationType != ''">
+			   <!-- 待审核 -->
+			   <if test="keyValMap.operationType == 0">
+			      and Status in ('0','1')
+			   </if>
+			   <!-- 待审核 -->
+			   <if test="keyValMap.operationType == 1">
+			      and Status = '2'
+			   </if>
+			   <!-- 已审核 -->
+			   <if test="keyValMap.operationType == 2">
+			      and Status in ('-1','3')
+			   </if>
+			</if>
+			<!-- 申请开始时间 -->
+			<if test="keyValMap.startDate != null and keyValMap.startDate != ''">
+				and CreateTime &gt;= #{keyValMap.startDate,jdbcType=TIMESTAMP}
+			</if>
+			<!-- 申请结束时间 -->
+			<if test="keyValMap.endDate != null and keyValMap.endDate != ''">
+				and CreateTime &lt;= #{keyValMap.endDate,jdbcType=TIMESTAMP}
+			</if>
+			<!-- 申请人 -->
+			<if test="keyValMap.userNameLike != null and keyValMap.userNameLike != ''">
+				and UserName LIKE CONCAT(CONCAT('%', #{keyValMap.userNameLike}), '%')
+			</if>
+			<!-- 流程名称 -->
+			<if test="keyValMap.flowNameLike != null and keyValMap.flowNameLike != ''">
+				and FlowName LIKE CONCAT(CONCAT('%', #{keyValMap.flowNameLike}), '%')
+			</if>
+			-- BUG#108修改  by zb.shen 2016-01-21 start.
+			<if test="keyValMap.excludedStatus != null and keyValMap.excludedStatus != ''">
+				and Status &lt;&gt; #{keyValMap.excludedStatus}
+			</if>
+			-- BUG#108修改  by zb.shen 2016-01-21 end.
+		</where>
+	</sql>
+	<!-- 分页查询数据 -->
+	<select id="queryApprovalByPage" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT *
+		<include refid="selectApprovalByQueryCriteriaSql" />
+		<if test="keyValMap.orderBy != null">
+			ORDER BY ${keyValMap.orderBy}
+		</if>
+	</select>
+	<!-- 查询总数 -->
+	<select id="queryApprovalCount" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="long">
+		SELECT count(tb.id)
+		<include refid="selectApprovalByQueryCriteriaSql" />
+	</select>
+	<!-- 查询代办任务 -->
+	<select id="getApprovalAuditRecord" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT approval.* from tb_approval approval,tb_entity_account
+		entity_account where approval.ID = entity_account.EntityID
+		and approval.CorpId = '${parameter.corpId}'
+		and approval.Status &lt;&gt; '0'
+		and entity_account.EntityType = '3' <!-- 审批 -->
+		and entity_account.PersonType = '0'  <!-- 审核 -->
+		and entity_account.Invalid = false  <!-- 数据有效 -->
+		and entity_account.AccountID = '${keyValMap.userId}' <!-- 当前用户 -->
+		and entity_account.DealResult = '0'  <!-- 待审核 -->
+		<!-- 操作类型 -->
+		ORDER BY approval.CreateTime desc
+	</select>
+	
+	<!-- 查询审批记录 审核人 抄送人 -->
+	<select id="getApprovalCcRecord" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT approval.* from tb_approval approval,tb_entity_account entity_account
+		where 
+		approval.ID = entity_account.EntityID
+		and approval.Status &lt;&gt; '0'
+		and approval.CorpId = '${parameter.corpId}'
+		and entity_account.EntityType = '3' <!-- 审批 -->
+		and entity_account.PersonType = '1'  <!-- 抄送 -->
+		and entity_account.Invalid = false  <!-- 数据有效 -->
+		and entity_account.AccountID = '${keyValMap.userId}' <!-- 当前用户 -->
+		<!-- 已通过 -->
+		<if test="keyValMap.status==0">
+		    and approval.Status = '3'
+		</if>
+		<!-- 未通过 -->
+		<if test="keyValMap.status==1">
+		    and approval.Status in ('1','-1','2')
+		</if>
+		<!-- 已办 -->
+		<if test="keyValMap.status==2">
+		    and approval.Status in ('3')
+		    and approval.CStatus = '1'
+		</if>
+		<!-- 未办 -->
+		<if test="keyValMap.status==3">
+		    and approval.Status in ('3')
+		    and approval.CStatus = '0'
+		</if>
+		<if test="keyValMap.flowNameLike != null">
+		    and approval.FlowName LIKE CONCAT(CONCAT('%', #{keyValMap.flowNameLike}), '%')
+		</if>
+		<if test="keyValMap.userNameLike != null">
+		    and approval.UserName LIKE CONCAT(CONCAT('%', #{keyValMap.userNameLike}), '%')
+		</if>
+		<if test="keyValMap.createDate != null">
+		    and Date(approval.CreateTime) = Date(#{keyValMap.createDate,jdbcType=TIMESTAMP})
+		</if>
+		
+		<!-- 操作类型 -->
+		ORDER BY approval.CreateTime desc
+	</select>
+	
+	<!-- 获取与报销相关数据 -->
+	<select id="getApprovalBeAuditRecord" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="Map">
+		select a.ID as id,a.UserName as userName ,a.flowName as
+		flowName
+		,a.CreateTime as createTime,ea.DealResult as status,a.CStatus as cstatus from
+		tb_entity_account ea , tb_approval a
+		where ea.Invalid = false
+		and ea.EntityID = a.ID
+		and a.CorpId = '${parameter.corpId}'
+		and ea.AccountID= '${keyValMap.userId}'
+		and ea.PersonType= '${keyValMap.personType}'
+		and ea.DealResult &lt;&gt; '0'
+		ORDER BY a.CreateTime desc
+	</select>
+
+	<delete id="deleteApprovalById">
+		DELETE FROM tb_approval WHERE ID = #{id}
+	</delete>
+
+	<update id="updateApproval" parameterType="Approval">
+		UPDATE tb_approval
+		<set>
+			<if test="userId != null ">UserID = #{userId},</if>
+			<if test="userName != null ">UserName = #{userName},</if>
+			<if test="flowName != null ">FlowName = #{flowName},</if>
+			<if test="department != null ">Department = #{department},</if>
+			<if test="content != null ">Content = #{content},</if>
+			<if test="remark != null ">Remark = #{remark},</if>
+			<if test="contractNumber != null ">ContractNumber = #{contractNumber},</if>
+			<if test="partner != null ">Partner = #{partner},</if>
+			<if test="createTime != null ">CreateTime = #{createTime},</if>
+			<if test="flowType != null ">FlowType = #{flowType},</if>
+			<if test="endTime != null ">EndTime = #{endTime,jdbcType=TIMESTAMP},</if>
+			<if test="cstatus != null ">CStatus = #{cstatus},</if>
+			<if test="status != null ">Status = #{status}</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+</mapper>

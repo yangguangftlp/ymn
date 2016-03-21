@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	   		http://www.springframework.org/schema/mvc   
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<!-- 自动扫描的包名 -->
+	<context:component-scan base-package="com.vyiyun.**.weixin.dao" />
+	<context:component-scan base-package="com.vyiyun.**.weixin.service.impl" />
+	<!-- 加载属性文件，可以有多个 -->
+	<context:property-placeholder location="classpath*:config/jdbc.properties"
+		ignore-unresolvable="true" />
+		
+	<!-- <context:property-placeholder location="classpath*:config/memcache.properties" 
+		ignore-unresolvable="true"/> -->
+	<!-- 设置数据源 -->
+	<bean id="energyDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${app.jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${app.jdbc.url}" />
+		<property name="user" value="${app.jdbc.username}" />
+		<property name="password" value="${app.jdbc.password}" />
+		<!--连接池中保留的最小连接数。 -->
+		<property name="minPoolSize" value="10" />
+		<!--连接池中保留的最大连接数。Default: 15 -->
+		<property name="maxPoolSize" value="200" />
+		<!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+		<property name="maxIdleTime" value="1800" />
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+		<property name="acquireIncrement" value="5" />
+		<property name="maxStatements" value="1000" />
+		<property name="initialPoolSize" value="10" />
+		<!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
+		<property name="idleConnectionTestPeriod" value="60" />
+		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="breakAfterAcquireFailure" value="true" />
+		<property name="testConnectionOnCheckout" value="false" />
+	</bean>
+	<!-- 系统国际化 -->
+	<bean id="messageSource"
+		class="com.vyiyun.weixin.framework.spring.MultipleResourceSource">
+		<property name="basenames">
+			<list>
+				<!-- 如果有多个资源文件，全部列在此处 -->
+				<value>classpath*:i18n/*/*</value>
+				<!-- <value>classpath*:config/*</value> -->
+			</list>
+		</property>
+		<!-- 配置缓存时间 -->
+		<!-- <property name="cacheSeconds" value="3000" /> -->
+	</bean>
+	<!-- 初始化一个事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="energyDataSource" />
+	</bean>
+
+	<!-- 定义SqlSessionFactory，表明当你使用MapperFactoryBean时configLocation不是必须的 -->
+	<bean id="sqlSessionFactory"
+		class="com.vyiyun.weixin.framework.mybatis.VyySqlSessionFactoryBean">
+		<property name="dataSource" ref="energyDataSource" />
+		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
+		<property name="configLocations" value="classpath:config/mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath*:config/mybatis/mapping/*.xml"/>
+	</bean>
+	<!-- 配置系统spring上下文工具类 -->
+	<bean id="springContextUtil" class="com.vyiyun.weixin.utils.SpringContextHolder">
+		<!-- 系统配置文件路径 -->
+		<property name="sysCfgFilePath">
+			<map>
+				<entry key="weixin_app" value="config/weixin_app.properties" />
+				<entry key="vyiyun_config" value="config/vyiyun_config.properties" />
+			</map>
+		</property>
+		<property name="dataSource" ref="energyDataSource" />
+	</bean>
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.vyiyun.**.weixin.dao" />
+		<!-- <property name="annotationClass" value="org.springframework.stereotype.Repository" /> -->
+	</bean>
+	<!-- 事务配置 -->
+	<tx:advice id="energyTransactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="query*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 日志拦截器配置 -->
+	<bean id="serviceLogAdvice" class="com.vyiyun.weixin.interceptor.ServiceLogPointcut" />
+	<!-- dao sql 执行拦截器 -->
+	<!-- aop配置 -->
+	<aop:config>
+		<!-- 事务切入点 -->
+		<aop:pointcut id="txPointcut"
+			expression="execution(* com.vyiyun.**.weixin.service.*.*(..))" />
+		<!-- 业务日志拦截器 所有业务执行日志 -->
+		<aop:pointcut id="servicelogPointcut"
+			expression="execution(* com.vyiyun.**.weixin.service.*.*(..))" />
+		<!-- dao层拦截器配置 -->
+		<aop:advisor advice-ref="energyTransactionAdvice"
+			pointcut-ref="txPointcut" />
+		<aop:advisor advice-ref="serviceLogAdvice" pointcut-ref="servicelogPointcut" />
+	</aop:config>
+	<!-- 所有controller 统一异常处理 -->
+	<bean id="exceptionHandler" class="com.vyiyun.common.weixin.interceptor.ControllerExceptionHandler" />
+	<!-- 所有controller 拦截器 -->
+	<!-- <mvc:interceptors>
+		使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求
+		<bean class="com.vyiyun.weixin.interceptor.RequestParametersInterceptor" />
+		<bean class="com.vyiyun.weixin.interceptor.ControllerInterceptor">
+			<property name="excludeUrl">
+				<list>
+					<value>/weixin/</value>
+				</list>
+			</property>
+		</bean>
+	</mvc:interceptors> -->
+</beans>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.SignMapper">
+
+	<resultMap id="result" type="Sign">
+		<result property="corpId" column="CorpId" />
+		<result property="id" column="ID" />
+		<result property="userId" column="UserID" />
+		<result property="userName" column="UserName" />
+		<result property="theme" column="Theme" />
+		<result property="beginTime" column="BeginTime" jdbcType="TIMESTAMP" />
+		<result property="endTime" column="EndTime" jdbcType="TIMESTAMP" />
+		<result property="signType" column="SignType" />
+	</resultMap>
+	<resultMap type="SignUser" id="resultVo">
+		<result property="userId" column="ID" />
+		<result property="userName" column="userName" />
+		<result property="location" column="location" />
+		<result property="signTime" column="signTime" />
+		<result property="attendType" column="attendType" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	<insert id="addSign" parameterType="java.util.List">
+		INSERT INTO tb_sign
+		(ID,CorpId,UserID,UserName,Theme,BeginTime,EndTime,SignType)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.userId},#{item.userName},#{item.theme},#{item.beginTime,jdbcType=TIMESTAMP},#{item.endTime,jdbcType=TIMESTAMP},#{item.signType})
+		</foreach>
+	</insert>
+
+	<!-- 获取签到信息 -->
+	<select id="getSign" parameterType="Sign" resultMap="result">
+		SELECT * from tb_sign
+		<where>
+			<if test="id != null">
+				ID = #{id}
+			</if>
+			<if test="corpId != null">
+				and CorpId = #{corpId}
+			</if>
+			<if test="userId != null">
+				and UserID = #{userId}
+			</if>
+			<if test="userName != null">
+				and UserName = #{userName}
+			</if>
+			<if test="theme != null">
+				and Theme = #{theme}
+			</if>
+			<if test="beginTime != null">
+				and BeginTime = #{beginTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null">
+				and EndTime = #{endTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="signType != null">
+				and SignType = #{signType}
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页条件sql -->
+	<sql id="selectSignByQueryCriteriaSql">
+		FROM tb_sign tb
+		<where>
+			<if test="parameter.corpId != null">
+				CorpId = #{parameter.corpId}
+			</if>
+			<if test="parameter.id != null">
+				and ID = #{parameter.id}
+			</if>
+			<if test="parameter.userId != null">
+				and UserID = #{parameter.userId}
+			</if>
+			<if test="parameter.userName != null">
+				and UserName = #{parameter.userName}
+			</if>
+			<if test="parameter.theme != null">
+				and Theme = #{parameter.theme}
+			</if>
+			<if test="parameter.signType != null">
+				and SignType = #{parameter.signType}
+			</if>
+			<if test="parameter.beginTime != null">
+				and BeginTime = #{parameter.beginTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="parameter.endTime != null">
+				and EndTime = #{parameter.endTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="keyValMap.isKq != null &amp;&amp; keyValMap.isKq == true">
+				and date(BeginTime) =CURDATE()
+				and date(EndTime) =CURDATE()
+				and SignType = '0' or Exists(SELECT 0 FROM tb_entity_account b 
+				WHERE b.entityID=tb.ID 
+				AND tb.SignType = '1'
+                AND b.EntityType = '0'
+				AND b.accountID=#{keyValMap.userId}
+				AND b.targetDate=CURDATE()) 
+			</if>
+			<if test="keyValMap.isEnd != null &amp;&amp; keyValMap.isEnd == true">
+				and SignType = '1'
+				and EndTime &lt;SYSDATE()
+			</if>
+			<if test=" keyValMap.isNoEnd != null &amp;&amp; keyValMap.isNoEnd  == true">
+				and SignType = '1'
+				and EndTime &gt;= SYSDATE()
+			</if>
+			<!-- 关于考勤初始化 定时任务每天需要查询 是否已经初始化过考勤数据 -->
+			<if test="keyValMap.isKqInit != null &amp;&amp; keyValMap.isKqInit == true">
+				and date(BeginTime) =CURDATE()
+				and date(EndTime) =CURDATE()
+			</if>
+		</where>
+	</sql>
+	<!-- 分页查询数据 -->
+	<select id="querySignByPage" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT *
+		<include refid="selectSignByQueryCriteriaSql" />
+		<if test="orderBy != null">
+			${orderBy}
+		</if>
+	</select>
+	<!-- 查询总数 -->
+	<select id="querySignCount" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="long">
+		SELECT count(tb.id)
+		<include refid="selectSignByQueryCriteriaSql" />
+	</select>
+
+	<!-- 查询当前人发起的签到任务 已完成 或 未完成的 -->
+	<select id="getMyLaunchSign">
+		FROM tb_sign tb
+		<where>
+			<if test="parameter.id != null">
+				ID = #{parameter.id}
+			</if>
+			<if test="parameter.corpId != null">
+				and CorpId = #{parameter.corpId}
+			</if>
+			<if test="parameter.userId != null">
+				and UserID = #{parameter.userId}
+			</if>
+			<if test="parameter.userName != null">
+				and UserName = #{parameter.userName}
+			</if>
+
+		</where>
+	</select>
+
+	<!-- 根据id获取签到实体 -->
+    <select id="getSignById" parameterType="Sign" resultMap="result">
+       Select * from tb_sign where ID = #{id} and CorpId = #{corpId}
+    </select>
+
+	<!-- 删除 -->
+	<delete id="deleteById" parameterType="Sign">
+		DELETE FROM tb_sign
+		WHERE ID = #{id} and CorpId = #{corpId}
+	</delete>
+
+	<!-- 更新 -->
+	<update id="updateSign" parameterType="Sign">
+		UPDATE tb_sign
+		<set>
+			<if test="userId != null ">UserID = #{userId},</if>
+			<if test="userName != null ">UserName = #{userName},</if>
+			<if test="theme != null ">Theme = #{theme},</if>
+			<if test="beginTime != null ">BeginTime = #{beginTime,jdbcType=TIMESTAMP},</if>
+			<if test="endTime != null ">EndTime = #{endTime,jdbcType=TIMESTAMP},</if>
+			<if test="signType != null ">SignType = #{signType},</if>
+			<if test="remark != null ">Remark = #{remark}</if>
+		</set>
+		WHERE ID = #{id} and CorpId = #{corpId}
+	</update>
+
+	<!-- 查询考勤记录列表 -->
+	<select id="queryAttendanceList" parameterType="com.vyiyun.weixin.model.SqlQueryParameter" resultType="java.util.Map">
+		SELECT
+			IFNULL(sut.UserID, '') as userId,
+			IFNULL(sut.userName, '') as userName,
+			IFNULL(sut.Location, '') as location,
+			sut.SignTime as signTime,
+			IFNULL(sut.AttendType, '') as attendType,
+			IFNULL(sut.Remark, '') as remark
+		FROM tb_sign_user sut, tb_sign st
+		<where>
+			1 = 1
+			<if test="keyValMap.corpId != null and keyValMap.corpId != ''">
+			AND sut.CorpId = #{keyValMap.corpId}
+			</if>
+			AND sut.CorpId = st.CorpId
+			AND sut.SignID = st.ID
+			<if test="keyValMap.userName != null and keyValMap.userName != ''">
+			AND (sut.userName LIKE CONCAT(CONCAT('%',#{keyValMap.userName}), '%')
+				<!-- OR sut.Userid LIKE CONCAT(CONCAT('%',#{keyValMap.userName}), '%') -->
+				<!-- 拼音首字母查询 OR  -->
+				)
+			</if>
+			<if test="keyValMap.startTime != null and keyValMap.startTime != ''">
+			AND sut.signTime &gt;= #{keyValMap.startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="keyValMap.endTime != null and keyValMap.endTime != ''">
+			AND sut.signTime &lt;= #{keyValMap.endTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		ORDER BY sut.signTime DESC, sut.UserID ASC
+	</select>
+
+</mapper>

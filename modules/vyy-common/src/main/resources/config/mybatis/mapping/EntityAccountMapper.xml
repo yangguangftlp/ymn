@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.weixin.dao.EntityAccountMapper">
+
+	<resultMap id="result" type="EntityAccount">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="entityId" column="EntityID" />
+		<result property="entityType" column="EntityType" />
+		<result property="accountId" column="AccountID" />
+		<result property="accountName" column="AccountName" />
+		<result property="accountType" column="AccountType" />
+		<result property="personType" column="PersonType" />
+		<result property="dealResult" column="DealResult" />
+		<result property="targetDate" column="TargetDate" jdbcType="TIMESTAMP" />
+		<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP" />
+		<result property="remark" column="Remark" />
+		<result property="avatar" column="Avatar" />
+		<result property="invalid" column="Invalid" jdbcType="BOOLEAN" />
+		<result property="appraiseTimes" column="AppraiseTimes" jdbcType="INTEGER"/>
+		<result property="appraiseUsers" column="AppraiseUsers" jdbcType="INTEGER"/>
+	</resultMap>
+	<!-- 新增实体记录 -->
+	<insert id="addEntityAccount" parameterType="java.util.List">
+		INSERT INTO tb_entity_account
+		(ID,CorpId,EntityID,EntityType,AccountID,AccountName,AccountType,PersonType,DealResult,TargetDate,Remark,Avatar,AppraiseUsers)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.entityId},#{item.entityType},#{item.accountId},#{item.accountName},#{item.accountType},#{item.personType},#{item.dealResult},#{item.targetDate},#{item.remark},#{item.avatar},#{item.appraiseUsers,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+
+	<!-- 查询实体用户信息 -->
+	<select id="getEntityAccount" parameterType="EntityAccount"
+		resultMap="result">
+		SELECT * FROM tb_entity_account
+		<where>
+			1 = 1
+			<if test="corpId != null">
+				and CorpId = #{corpId}
+			</if>
+			<if test="entityId != null">
+				and EntityID = #{entityId}
+			</if>
+			<if test="entityType != null">
+				and EntityType = #{entityType}
+			</if>
+			<if test="accountId != null">
+				and AccountID = #{accountId}
+			</if>
+			<if test="accountType != null">
+				and AccountType = #{accountType}
+			</if>
+			<if test="personType != null">
+				and PersonType = #{personType}
+			</if>
+			<if test="dealResult != null">
+				and DealResult = #{dealResult}
+			</if>
+			<if test="targetDate != null">
+				and TargetDate = #{targetDate}
+			</if>
+			<if test="remark != null">
+				and Remark = #{remark}
+			</if>
+			<if test="invalid != null ">
+				and Invalid = #{invalid}
+			</if>
+		</where>
+		Order by UpdateTime asc
+	</select>
+
+	<!-- 查询实体用户信息 -->
+	<select id="getEntityAccountById" parameterType="string"
+		resultMap="result">
+		SELECT * FROM tb_entity_account where ID = #{id}
+	</select>
+
+	<!-- 分页条件sql -->
+	<sql id="selectEntityAccountByQueryCriteriaSql">
+		FROM tb_entity_account tb
+		<where>
+			1 = 1
+			<if test="parameter.corpId != null">
+				and CorpId = #{parameter.corpId}
+			</if>
+			<if test="parameter.entityId != null">
+				and EntityID = #{parameter.entityId}
+			</if>
+			<if test="parameter.entityType != null">
+				and EntityType = #{parameter.entityType}
+			</if>
+			<if test="parameter.accountId != null">
+				and AccountID = #{parameter.accountId}
+			</if>
+			<if test="parameter.accountType != null">
+				and AccountType = #{parameter.accountType}
+			</if>
+			<if test="parameter.personType != null">
+				and PersonType = #{parameter.personType}
+			</if>
+			<if test="parameter.dealResult != null">
+				and DealResult = #{parameter.dealResult}
+			</if>
+			<if test="parameter.targetDate != null">
+				and TargetDate = #{parameter.targetDate}
+			</if>
+			<if test="parameter.remark != null">
+				and Remark = #{parameter.remark}
+			</if>
+			<if test="parameter.invalid != null">
+				and Invalid =
+				#{parameter.invalid,jdbcType=BOOLEAN}
+			</if>
+			<if test="keyValMap.targetDateBefore != null">
+				and TargetDate
+				&gt;=#{targetDateBefore,jdbcType=TIMESTAMP}
+			</if>
+			<if test="keyValMap.targetDateAfter != null">
+				and TargetDate &lt;=
+				#{targetDateAfter,jdbcType=TIMESTAMP}
+			</if>
+
+			<if test="keyValMap.updateTimeBefore != null">
+				and UpdateTime
+				&gt;=#{updateTimeBefore,jdbcType=TIMESTAMP}
+			</if>
+			<if test="keyValMap.updateTimeAfter != null">
+				and UpdateTime &lt;=
+				#{updateTimeAfter,jdbcType=TIMESTAMP}
+			</if>
+			<!-- 判断是否已审核 -->
+			<if test="keyValMap.audited != null &amp;&amp; keyValMap.audited == true">
+				and DealResult &lt;&gt; '0'
+			</if>
+		</where>
+	</sql>
+	<!-- 分页查询数据 -->
+	<select id="getEntityAccountByPage" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT *
+		<include refid="selectEntityAccountByQueryCriteriaSql" />
+		<if test="orderBy != null">
+			${orderBy}
+		</if>
+	</select>
+	<!-- 查询总数 -->
+	<select id="getEntityAccountCount" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="long">
+		SELECT count(tb.EntityID)
+		<include refid="selectEntityAccountByQueryCriteriaSql" />
+	</select>
+
+	<!-- 获取与报销相关数据 -->
+	<select id="queryEntityAccountExpense" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="Map">
+		select e.ID as id,e.UserName as userName ,e.Theme as theme
+		,e.CreateTime as
+		createTime,ea.DealResult as status from
+		tb_entity_account ea ,
+		tb_expense e
+		where ea.Invalid = false
+		and ea.EntityID = e.ID
+		and ea.CorpId = e.CorpId
+		<if test="keyValMap.corpId != null">
+			and ea.CorpId= '${keyValMap.corpId}'
+		</if>
+		<if test="keyValMap.userId != null">
+			and ea.AccountID= '${keyValMap.userId}'
+		</if>
+		and ea.PersonType='${keyValMap.personType}'
+		and ea.DealResult &lt;&gt; '0'
+		<if test="keyValMap.ids != null"> 
+		  and ea.AccountID in
+			<foreach item="item" index="index" collection="keyValMap.ids" open="("  separator=","  close=")" >#{keyValMap.ids[${index}]}</foreach> 
+		</if>
+		<if test="keyValMap.uNameLike != null">
+			and e.UserName LIKE CONCAT(CONCAT('%', #{keyValMap.uNameLike}), '%')
+		</if>
+		<if test="keyValMap.expenseNumLIke != null">
+		   and e.ExpenseNum LIKE CONCAT(CONCAT('%', #{keyValMap.expenseNumLIke}), '%')
+		</if>
+		<if test="keyValMap.startDate">
+		   and date(e.CreateTime) &gt;= date(#{keyValMap.startDate})
+		</if>
+		<if test="keyValMap.endDate">
+		   and date(e.CreateTime) &lt;=  date(#{keyValMap.endDate})
+		</if>
+		order by e.CreateTime desc 
+	</select>
+
+	<!-- 根据id删除实体记录 -->
+	<delete id="deleteEntityAccount" parameterType="EntityAccount">
+		DELETE FROM tb_entity_account
+		<where>
+			1 = 1
+			<if test="id != null">
+				and ID = #{id}
+			</if>
+			<if test="corpId != null">
+				and CorpId = #{corpId}
+			</if>
+			<if test="entityId != null">
+				and EntityID = #{entityId}
+			</if>
+			<if test="accountId != null">
+				and AccountID = #{accountId}
+			</if>
+		</where>
+	</delete>
+
+	<update id="updateEntityAccount" parameterType="EntityAccount">
+		UPDATE tb_entity_account
+		<set>
+			<if test="accountType != null ">AccountType = #{accountType},</if>
+			<if test="targetDate != null ">TargetDate = #{targetDate},</if>
+			<if test="remark != null ">Remark = #{remark},</if>
+			<if test="avatar != null ">Avatar = #{avatar},</if>
+			<if test="invalid != null ">Invalid = #{invalid},</if>
+			<if test="appraiseTimes != null ">AppraiseTimes = #{appraiseTimes},</if>
+			<if test="dealResult != null ">DealResult = #{dealResult}</if>
+		</set>
+		<where>
+			1 = 1
+			<if test="id != null">
+				and ID = #{id}
+			</if>
+			<if test="corpId != null">
+				and CorpId = #{corpId}
+			</if>
+			<if test="entityId != null">
+				and EntityID = #{entityId}
+			</if>
+			<if test="accountId != null">
+				and AccountID = #{accountId}
+			</if>
+			<if test="personType != null ">
+			     and PersonType = #{personType}
+			</if>
+			<if test="entityType != null ">
+			and EntityType = #{entityType}
+			</if>
+		</where>
+	</update>
+
+	<!-- 获取当前业务当前审核人 -->
+	<select id="getCurrentBusinessAuditAccount" parameterType="EntityAccount" resultMap="result">
+		SELECT * FROM tb_entity_account
+		WHERE EntityID = #{entityId}
+		AND CorpId = #{corpId}
+		AND EntityType = #{entityType}
+		AND DealResult = '0'
+	</select>
+
+	<!-- 根据实体id列表删除记录 -->
+	<delete id="deleteEntityAccountByEntityIds" parameterType="java.util.List">
+		DELETE FROM tb_entity_account WHERE EntityID in 
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>

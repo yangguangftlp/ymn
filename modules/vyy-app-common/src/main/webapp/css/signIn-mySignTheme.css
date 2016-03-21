@@ -1,0 +1,107 @@
+body{
+    background: #ebebeb;
+}
+/* 绛惧埌涓婚澶撮儴Start */
+.mySignTheme>header{
+    height: auto;
+    border-top: 1px solid #aeaeae;
+    border-bottom: 1px solid #aeaeae;
+    color: #26a69a;
+    text-align: center;padding:10px 10px 20px;
+    background:#06b596;color:#fff;
+}
+header .themeTit{
+	margin-bottom:10px;
+    font-size: 24px;
+    line-height: 30px;
+}
+header .themeTime span:first-child{
+    font-size: 18px;
+}
+header .themeTime span:nth-child(2),
+header .themeTime span:nth-child(3){
+    font-size: 14px;
+    display: inline-block;
+    margin-left: 10px;
+}
+/* 绛惧埌涓婚澶撮儴End */
+
+/* 绛惧埌涓婚銆佸紑濮嬫椂闂淬�缁撴潫鏃堕棿鏍峰紡Start */
+/* .formList{
+    padding: 0 15px 0 10px;
+    border-bottom: 1px solid #aeaeae;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    background: #fff;
+    position: relative;
+} */
+.peopleList{
+    padding: 0 15px 0 10px;
+    border-bottom: 1px solid #aeaeae;
+    min-height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    background: #fff;
+    position: relative;
+}
+/* .listLeft{
+    width: 5.5em;
+    float: left;
+    color: #000;
+    margin-left: -100%;
+    position: relative;
+    z-index: 1000;
+    font-size: 16px;
+} */
+.signInLeft{
+    width: 6.5em;
+    float: left;
+    color: #000;
+    margin-left: -100%;
+    position: relative;
+    z-index: 1000;
+    font-weight: bold;
+    font-size: 16px;
+ }
+/* .listRight,
+.signInRight{
+    float: left;
+    width: 100%;
+} */
+.signInRight span{
+    display: block;
+    width: 100%;
+    padding-left: 6.5em;
+    color: #787878;
+    position: relative;
+    z-index: 1000;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+/* .listRight span{
+    display: block;
+    width: 100%;
+    padding-left: 5.5em;
+    color: #787878;
+    position: relative;
+    z-index: 1000;
+    font-size: 16px;
+    box-sizing: border-box;
+} */
+/* 绛惧埌涓婚銆佸紑濮嬫椂闂淬�缁撴潫鏃堕棿鏍峰紡End */
+/* 鐗堟潈鎵�湁 */
+body > div[class*="arp"]{
+    margin-bottom: 40px;
+}
+footer.copyright{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    position: fixed;
+    bottom: 0px;
+    background: #ebebeb;
+    z-index: 5000;
+}

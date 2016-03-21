@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.AttendanceRuleMapper">
+
+	<resultMap id="result" type="AttendanceRule">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="startHour" column="StartHour" />
+		<result property="startMinute" column="StartMinute" />
+		<result property="endHour" column="EndHour" />
+		<result property="endMinute" column="EndMinute" />
+		<result property="delayMinutes" column="DelayMinutes" />
+		<result property="sun" column="Sun"/>
+		<result property="mon" column="Mon"/>
+		<result property="tues" column="Tues"/>
+		<result property="wed" column="Wed"/>
+		<result property="thur" column="Thur"/>
+		<result property="fri" column="Fri"/>
+		<result property="sat" column="Sat"/>
+		<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<!-- 新增考勤规则记录 -->
+	<insert id="addAttendanceRule" parameterType="java.util.List">
+		INSERT INTO tb_attendance_rule
+		(
+			ID,
+			CorpId,
+			StartHour,
+			StartMinute,
+			EndHour,
+			EndMinute,
+			DelayMinutes,
+			Sun,
+			Mon,
+			Tues,
+			Wed,
+			Thur,
+			Fri,
+			Sat,
+			CreateTime,
+			UpdateTime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.id},
+			#{item.corpId},
+			#{item.startHour},
+			#{item.startMinute},
+			#{item.endHour},
+			#{item.endMinute},
+			#{item.delayMinutes},
+			#{item.sun},
+			#{item.mon},
+			#{item.tues},
+			#{item.wed},
+			#{item.thur},
+			#{item.fri},
+			#{item.sat},
+			#{item.createTime,jdbcType=TIMESTAMP},
+			#{item.updateTime,jdbcType=TIMESTAMP}
+		)
+		</foreach>
+	</insert>
+
+	<!-- 获取考勤规则记录 -->
+	<select id="getAttendanceRule" parameterType="com.vyiyun.common.weixin.entity.AttendanceRule" resultMap="result">
+		SELECT * FROM tb_attendance_rule
+		<where>
+			1 = 1
+			<if test="id != null and id != ''">
+			AND ID = #{id}
+			</if>
+			<if test="corpId != null and corpId != ''">
+			AND CorpId = #{corpId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 修改考勤规则记录 -->
+	<update id="updateAttendanceRule" parameterType="com.vyiyun.common.weixin.entity.AttendanceRule">
+		UPDATE tb_attendance_rule
+		<set>
+			<if test="startHour != null">StartHour = #{startHour},</if>
+			<if test="startMinute != null">StartMinute = #{startMinute},</if>
+			<if test="endHour != null">EndHour = #{endHour},</if>
+			<if test="endMinute != null">EndMinute = #{endMinute},</if>
+			<if test="delayMinutes != null">DelayMinutes = #{delayMinutes},</if>
+			<if test="sun != null">Sun = #{sun},</if>
+			<if test="mon != null">Mon = #{mon},</if>
+			<if test="tues != null">Tues = #{tues},</if>
+			<if test="wed != null">Wed = #{wed},</if>
+			<if test="thur != null">Thur = #{thur},</if>
+			<if test="fri != null">Fri = #{fri},</if>
+			<if test="sat != null">Sat = #{sat}</if>
+		</set>
+		<where>
+			1 = 1
+			<if test="id != null and id != ''">
+			AND ID = #{id}
+			</if>
+			<if test="corpId != null and corpId != ''">
+			AND CorpId = #{corpId}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 获取全部考勤规则记录 -->
+	<select id="getAllAttendanceRule" resultMap="result">
+		SELECT * FROM tb_attendance_rule ORDER BY CorpId
+	</select>
+
+</mapper>

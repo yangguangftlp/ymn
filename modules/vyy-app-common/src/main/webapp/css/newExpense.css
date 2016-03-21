@@ -1,0 +1,219 @@
+/* 报销事由textarea */
+.repExpReasons{
+    min-height: 100px;
+    height: auto !important;
+}
+textarea#reasons {
+    resize: none;
+    min-height: 100px;
+    line-height: 36px;
+    color: #787878;
+    font-size: 16px;
+    width: 100% !important;
+    padding-right: 15px;
+    box-sizing: border-box;
+    overflow: visible;
+}
+/* 报销事由End */
+/* 报销金额后的元、附件数目后的件的样式Start */
+.listRight b{
+    position: absolute;
+    right: 0px;
+    z-index: 1000;
+    top: 0px;
+    font-weight: 400;
+    line-height: 36px;
+    display: block;
+    height: 36px;
+}
+.listRight i{
+    position: absolute;
+    right: 0px;
+    z-index: 1000;
+    top: 0px;
+    font-weight: 400;
+    line-height: 36px;
+    display: block;
+    height: 36px;
+    font-size: 19px;
+}
+/* 报销说明 */
+.explanation{
+    line-height: 20px;
+    margin: 20px 15px 0 10px;
+    font-size: 14px;
+}
+/* 报销进展 */
+.feedback{
+    font-size: 16px;
+    padding: 11px 15px 11px 10px;
+    position: relative;
+}
+
+.feedback>i{
+    font-size: 19px;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    z-index: 2000;
+}
+.feedbackCon{
+    background: #fff;
+    font-size: 14px;
+    line-height: 24px;
+}
+.feedbackCon{
+    padding: 5px 10px 20px 15px;
+    max-height: 144px;
+    overflow-y: auto;
+}
+.feedbackCon>div{
+    border-bottom: 1px solid #aeaeae;
+    padding-bottom: 3px;
+}
+.feedbackCon>div>span{
+    display: block;
+    line-height: 24px;
+    text-indent: 2em;
+}
+.feedbackCon b{
+    color: #65A2FA;
+    font-weight: 400;
+}
+.departmentFeedbackCon{
+    position: relative;
+}
+.departmentFeedbackCon>div{
+    padding: 5px 10px 0px;
+}
+.departmentFeedbackCon>div:last-child{
+    padding-bottom: 5px !important;
+}
+#commentFooter{
+    position: relative;
+    padding: 10px 15px 10px 15px;
+    background: #fff;
+}
+#commentFooter input{
+    box-sizing: content-box;
+    width: 80%;
+    border: 1px solid #aeaeae;
+    border-radius: 4px;
+    height: 24px;
+    line-height: 24px;
+    padding: 4px 0 4px 10px;
+}
+#commentFooter img{
+    position: absolute;
+    top: 12px;
+    right: 15px;
+}
+/* 弹出模态框Start */
+.addModal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.2);
+    z-index: 5800;
+}
+.modalShell{
+    width: 76%;
+    background: #ebebeb;
+    border-radius: 8px;
+}
+.modalCon{
+    width: 90%;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+
+}
+.addModal .formList,
+.addModal .selectPeople{
+    border-color: #ccc !important;
+}
+.addModal .formList:first-child {
+    border-top: 0 !important;
+}
+/* 弹出模态框End */
+
+/* 报销类型 */
+.reimModal{
+    border-bottom: 1px solid #aeaeae;
+}
+.reimType{
+    display: box;
+    display: -webkit-box;
+    padding: 7px 15px 7px 10px;
+    line-height: 36px;
+    font-size: 16px;
+    background: #fff;
+    position: relative;
+    /*box-align : stretch;
+    -webkit-box-align : stretch;*/
+    -webkit-box-pack : start;
+    box-pack : start;
+}
+.reimType>div:first-child{
+    width: 5.5em;
+}
+.reimType>div:nth-child(2){
+    -webkit-box-flex: 1;
+    box-flex: 1;
+}
+
+/* 费用列表 */
+.feeList{
+    font-size: 16px;
+    background: #fff;
+    position: relative;
+    /*border-top: 1px solid #aeaeae;*/
+}
+.feeList>div{
+    height: 50px;
+    line-height: 50px;
+    border-top: 1px solid #aeaeae;
+    margin-left: 40px;
+}
+.feeList i{
+    font-size: 19px;
+    position: absolute;
+    right: 15px;
+    top: 17px;
+    z-index: 2000;
+}
+/* 列表 */
+.recordList{
+    background: #fff;
+    border-top: 1px solid #aeaeae;
+    margin-top: 20px;
+}
+.recordList>ul{
+    position: relative;
+}
+.searchToggle {
+    bottom: -20px;
+}
+.searchWarp{
+    border-bottom: 0 ;
+}
+.searchWarp>form {
+    margin: 0 20px 0px;
+    padding-top: 10px;
+    padding-bottom: 18px;
+}
+ul.nav{
+    margin-bottom: 0;
+}
+.searchToggle{
+    display: block;
+    position: absolute;
+    width: 33px;
+    bottom: -20px;
+    z-index: 10;
+}
+
+
+

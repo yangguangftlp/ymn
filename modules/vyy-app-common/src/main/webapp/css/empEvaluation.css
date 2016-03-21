@@ -1,0 +1,165 @@
+/* 弹出模态框Start */
+.addModal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.2);
+    z-index: 5800;
+}
+.modalShell{
+    width: 76%;
+    background: #ebebeb;
+    border-radius: 8px;
+}
+.modalCon{
+    width: 90%;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+}
+.addModal .formList,
+.addModal .selectPeople{
+    border-color: #ccc !important;
+}
+.addModal .formList:first-child {
+    border-top: 0 !important;
+}
+/* 弹出模态框End */
+
+/* 自定义多选按钮 */
+.customCheckBox{
+    width: 23px;
+}
+.customCheckBox:before{
+    font-size: 23px;
+    line-height: 44px;
+    color: rgba(0,0,0,.5);
+    top: -23px;
+    left: -4px;
+}
+/* 排行列表Start */
+.rankingList>span:nth-child(1) {
+    width: 23%;
+}
+.rankingList>span:nth-child(2) {
+    width: 25%;
+    color: #26a69a;
+    font-size: 16px;
+    font-weight: 600;
+}
+.rankingList>span:nth-child(3) {
+    width: 48%;
+    color: #787878;
+    font-size: 14px;
+}
+.rankingList>span:nth-child(1)>i {
+    display: inline-block;
+    background: #FF6091;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 40px;
+    text-align: center;
+    font-style: normal;
+    margin: 5px 0 5px 5px;
+}
+/* 排行列表End */
+
+/* 评价意见 */
+.replyResults {
+    padding: 0px 15px 10px 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background: #fff;
+}
+.replyResults header{
+    padding-bottom: 10px;
+    color: #000;
+}
+.replyResults ul li{
+    display: box;
+    display: -webkit-box;
+    box-align: stretch;
+    -webkit-box-align: stretch;
+    line-height: 24px;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+.replyResults ul li b,.replyResults ul li span{
+    display: block;
+}
+.replyResults ul li b{
+    width: 6em;
+    font-weight: 400;
+}
+.replyResults ul li span{
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+/* 评价查询 */
+.recordList{
+    background: #fff;
+    border-top: 1px solid #aeaeae;
+    margin-top: 26px;
+}
+.recordList>ul{
+    position: relative;
+}
+.evaStaffList>div{
+    width: 25%;
+    float: left;
+    text-align: center;
+    margin-top: 20px;
+}
+.evaStaffList .everyone{
+    width: 48px;
+    position: relative;
+    margin: auto;
+}
+.evaStaffList .everyone>img{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+.evaStaffList .everyone>span{
+    display: block;
+    text-align: center;
+}
+.evaStaffList b{
+    position: absolute;
+    top: 0;
+    right: -7px;
+    width: 18px;
+    height: 18px;
+    background-size: 18px 18px !important;
+}
+/* 进行评价的评分输入框 */
+.problemList .subtitle>input{
+    border: 1px solid #ebebeb;
+    height: 24px;
+    border-radius: 2px;
+    padding-left: 10px;
+    margin: 0 10px;
+}
+/* 综合评价意见 */
+article .multiLine{
+    border: 1px solid #ebebeb;
+    padding: 0px 15px 0px 10px;
+}
+.oddNumber{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 35% !important;
+    margin-right: 5% !important;
+}
+.subDate{
+	width : 60% !important;
+}

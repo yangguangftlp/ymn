@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>注册</title>
+    <meta name="keywords" content="优客互联,帮助客户更优秀,移动办公,云协作,移动OA,微信企业号,微信办公,手机办公,企业号服务商" />
+	<meta name="description" content="优客互联面向企业的日常办 公场景，提供丰富的基于微信平台的轻应用；同时， 向企业用户提供企业号开通及认证、应用定制、使用培训、辅助运营、统计分析等全 方位办公自动化解决方案。"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="shortcut icon" href="favicon.ico" />
+    <!-- basic styles -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<section class="wrap">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#example-navbar-collapse">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img src="images/logo.png" height="50" />
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="product.html">产品</a></li>
+                    <li><a href="custom.html">定制</a></li>
+                    <li><a href="help.html" >帮助</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li>
+                        <div class="header-btn btns">
+                            <a class="btn btn-dm btn-org" href="javascript:void(0)">登录</a>
+                            <a class="btn btn-dm btn-blue" href="reg.html">注册</a>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+    <section class="login">
+        <div class="body-grey clearfix">
+            <div class="container mt-20 clearfix">
+                <div class="reg-auto">
+                    <div class="reg-wrap">
+                        <h3>欢迎注册微移云</h3>
+                        <form id="defaultForm" novalidate="novalidate">
+                            <div class="form-horizontal" >
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label">用户名</label>
+                                    <div class="col-sm-10">
+                                    	<div id="email-text" class="form-control input-lg hide"></div>
+                                        <input type="text"  name="email" class="form-control input-lg" id="email"
+                                               placeholder="请输入邮箱如：vyiyun@hr.com" />
+                                        <i class="form-control-feedback glyphicon glyphicon-remove"></i>
+                                        <small class="help-block hide-v">请输入邮箱</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-sm-2 control-label">密码</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control input-lg" id="password"
+                                               placeholder="请输入密码" maxlength="16">
+                                        <i class="form-control-feedback glyphicon glyphicon-remove"></i>
+                                        <small class="help-block hide-v"  >请输入密码</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="surepwd" class="col-sm-2 control-label">确认密码</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control input-lg" id="surepwd"
+                                               placeholder="请输入确认密码"  maxlength="16">
+                                        <i class="form-control-feedback glyphicon glyphicon-remove"></i>
+                                        <small class="help-block hide-v"  >两次密码不同</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="companyName" class="col-sm-2 control-label">企业名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-lg" id="companyName"
+                                               placeholder="请输入企业名称">
+                                        <i class="form-control-feedback glyphicon glyphicon-remove"></i>
+                                        <small class="help-block hide-v"  >请输入企业名称</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactsName" class="col-sm-2 control-label">联系人</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-lg" id="contactsName"
+                                               placeholder="请输入联系人">
+                                        <i class="form-control-feedback glyphicon glyphicon-remove"></i>
+                                        <small class="help-block hide-v"  >请输入联系人</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address" class="col-sm-2 control-label">企业所在地</label>
+                                    <div class="col-sm-10 col-sel" id="address">
+                                        <span class="clearfix">
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                <select class="form-control prov" id="province">
+                                                    <option value="">请选择</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                <select class="form-control city" disabled="disabled" id="city">
+                                                    <option value="">请选择</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                <select class="form-control dist" disabled="disabled" id="area">
+                                                    <option value="">请选择</option>
+                                                </select>
+                                            </div>
+                                        </span>
+                                        <small class="help-block hide-v"  >请选择企业所在地</small>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="business" class="col-sm-2 control-label">所属行业</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control"  id="industry">
+                                            <option value="">请选择</option>
+                                            
+                                        </select>
+                                        <small class="help-block hide-v">请选择所属行业</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone" class="col-sm-2 control-label">手机号码</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-lg" id="phone"
+                                               placeholder="请输入手机号码">
+                                        <i class="form-control-feedback glyphicon glyphicon-remove"></i>
+                                        <small class="help-block hide-v"  >请输入手机号码</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="code" class="col-sm-2 control-label">验证码</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control input-lg" id="code"
+                                               placeholder="请输入验证码">
+                                        <i class="form-control-feedback glyphicon glyphicon-remove"></i>
+                                        <small class="help-block hide-v"  >请输入验证码</small>
+                                    </div>
+                                    <div class="col-sm-3 code">
+                                        <img src=""  width="125px" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" bor-bot-4 w9-muto"></div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="w9-muto btns">
+                                        <button class="btn btn-org btn-lg btn-block" id="validateBtn" type="button">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="row sevice">
+			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+				<h4>微移云</h4>
+				<p class="mt-10"><a href="help.html">帮助中心</a></p>
+				<p><a href="about.html">关于我们</a></p>
+				<p><a href="custom.html">市场合作</a></p>
+				<p><a href="about.html">人才招聘</a></p>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<h4>客服热线</h4>
+				<p class="big_tel">025-85635699</p>
+				<p class="b_name">江苏优客互联科技股份有限公司</p>
+				<p class="beian">版权所有 <a target="_blank"  href="http://www.miitbeian.gov.cn">苏ICP备15055835号-1</a></p>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+				<h4>关注我们的微信公众号</h4>
+				<p class="mt-15"><img src="images/erweima.gif" /></p>
+			</div>
+		</div>
+
+	</div>
+</footer>
+<script src="js/data.js"></script>
+<script src="js/jquery.cityselect.js"></script>
+<script src="js/page.js"></script>
+<script src="js/jquery.base64.js"></script>
+<script type="text/javascript">
+// $(function () { $('#errorModal').modal("show")});
+	var myparam = getQueryString("email");
+	if(myparam != null && myparam.toString().length>1){
+		var _email = $.base64.decode(myparam);
+		$("#email-text").text(_email).removeClass("hide");
+		$("#email").val(_email).hide();
+	}
+	$(function(){
+		regPage();
+	});
+	
+</script>
+
+</body>
+</html>

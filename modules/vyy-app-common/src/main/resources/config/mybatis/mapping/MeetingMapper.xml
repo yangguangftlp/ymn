@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.MeetingMapper">
+
+	<resultMap type="Meeting" id="result">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="theme" column="Theme" />
+		<result property="userId" column="UserID" />
+		<result property="userName" column="UserName" />
+		<result property="roomId" column="RoomID" />
+		<result property="roomName" column="RoomName" />
+		<result property="date" column="Date" />
+		<result property="start" column="Start" />
+		<result property="end" column="End" />
+		<result property="repeat" column="Repeat" />
+		<result property="status" column="Status" />
+	</resultMap>
+
+	<insert id="addMeeting" parameterType="Meeting">
+		INSERT INTO
+		`tb_meeting` VALUES
+		(#{id}, #{corpId}, #{theme}, #{userId},
+		#{userName}, #{roomId}, #{roomName}, #{date},
+		#{start}, #{end},
+		#{repeat}, #{status})
+	</insert>
+
+	<delete id="deleteMeetingById" parameterType="java.lang.String">
+		DELETE from
+		tb_meeting WHERE tb_meeting.ID = #{id}
+	</delete>
+
+	<select id="queryMeetingById" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT * FROM tb_meeting WHERE tb_meeting.ID = #{id}
+	</select>
+
+	<select id="queryAllMeetings" resultMap="result">
+		SELECT * FROM
+		tb_meeting
+	</select>
+
+	<select id="queryMeetingsByParameter" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT
+		meeting.*
+		FROM
+		tb_meeting meeting
+		<where>
+			1 = 1
+			<if test="parameter.id != null">
+				and ID = #{parameter.id}
+			</if>
+			<if test="parameter.roomId != null">
+				and RoomID = #{parameter.roomId}
+			</if>
+			<if test="parameter.userId != null">
+				and UserID = #{parameter.userId}
+			</if>
+			<if test="parameter.corpId != null">
+				and CorpId = #{parameter.corpId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页显示当前用户的待参加的会议 -->
+	<select id="queryMeetingsWaitByParameter" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT
+		meeting.*
+		FROM
+		tb_meeting meeting,
+		tb_entity_account ea
+		WHERE
+		meeting.ID = ea.EntityID
+		-- 微依云 公共应用 CorpId追加修正 2016-01-11 By zb.shen start.
+		AND meeting.CorpId = ea.CorpId
+		<if test="parameter.corpId != null and parameter.corpId != ''">
+			AND meeting.CorpId = #{parameter.corpId}
+		</if>
+		-- 微依云 公共应用 CorpId追加修正 2016-01-11 By zb.shen end.
+		AND ea.AccountID = #{keyValMap.currentUserId}
+		AND (
+		meeting.Date &gt; #{keyValMap.currentDate}
+		OR (
+		meeting.Date = #{keyValMap.currentDate}
+		AND meeting.`End` &gt; #{keyValMap.currentTime}
+		)
+		)
+		ORDER BY meeting.Date ASC ,meeting.`End` ASC
+	</select>
+
+	<!-- 分页显示当前用户的已结束的会议 -->
+	<select id="queryMeetingsOverByParameter" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT
+		meeting.*
+		FROM
+		tb_meeting meeting,
+		tb_entity_account ea
+		WHERE
+		meeting.ID = ea.EntityID
+		-- 微依云 公共应用 CorpId追加修正 2016-01-11 By zb.shen start.
+		AND meeting.CorpId = ea.CorpId
+		<if test="parameter.corpId != null and parameter.corpId != ''">
+			AND meeting.CorpId = #{parameter.corpId}
+		</if>
+		-- 微依云 公共应用 CorpId追加修正 2016-01-11 By zb.shen end.
+		AND ea.AccountID = #{keyValMap.currentUserId}
+		AND (
+		meeting.Date &lt; #{keyValMap.currentDate}
+		OR (
+		meeting.Date = #{keyValMap.currentDate}
+		AND meeting.`End` &lt;= #{keyValMap.currentTime}
+		)
+		)
+		ORDER BY meeting.Date DESC ,meeting.`End` DESC
+	</select>
+
+	<!-- 返回roomId=? repeat=1的 或者 roomId=? repeat=0 date=?的 start End -->
+	<select id="queryStartAndEndWithRepeat" parameterType="Meeting"
+		resultType="java.util.Map">
+		SELECT
+		`Start` as start,
+		`End` as end
+		FROM
+		tb_meeting tb1
+		WHERE
+		tb1.RoomID = #{roomId}
+		-- 微依云 公共应用 CorpId追加修正 2016-01-11 By zb.shen start.
+		AND tb1.CorpId = #{corpId}
+		-- 微依云 公共应用 CorpId追加修正 2016-01-11 By zb.shen end.
+		AND (
+		(
+		tb1.`Repeat` = '1'
+		AND (TO_DAYS(#{date}) -TO_DAYS(tb1.Date))%7=0
+		AND tb1.Date != #{date}
+		)
+		OR tb1.Date = #{date}
+		)
+	</select>
+
+	<!-- 显示某项会议的参会人员 -->
+	<select id="queryMeetingPeople" parameterType="java.util.Map"
+		resultType="EntityAccount">
+		SELECT * FROM tb_entity_account WHERE
+		tb_entity_account.EntityID = #{meetingId}
+		AND DealResult =
+		#{dealResult}
+	</select>
+
+	<update id="updateMeetingByParameter" parameterType="com.vyiyun.weixin.model.SqlQueryParameter">
+		UPDATE
+		tb_meeting
+		SET RoomName = #{parameter.roomName}
+		WHERE
+		RoomID = #{parameter.roomId}
+	</update>
+
+	<!-- 更新会议室开放总时间时，将在会议室不对外开放时间段中的会议的repeat为1的改为repeat为0 -->
+	<update id="updateRepeatValueWhenUpdateTotalTime" parameterType="Meeting">
+		UPDATE tb_meeting
+		SET `Repeat` = 0
+		WHERE
+		(
+		`Start` &lt; #{start}
+		OR `End` &gt; #{end}
+		)
+		AND `Repeat` = '1'
+		<if test="corpId != null and corpId != ''">
+			AND `CorpId` = #{corpId}
+		</if>
+	</update>
+
+	<!-- 更新会议室开放总时间时，判断在会议室不对外开放时间段中是否有会议存在 -->
+	<select id="queryMeetingCountWhenUpdateTotalTime" parameterType="Meeting"
+		resultType="java.lang.Integer">
+		SELECT
+		COUNT(1)
+		FROM
+		tb_meeting
+		WHERE
+		(
+		tb_meeting.`Start` &lt; #{start}
+		AND tb_meeting.Date &gt; #{date}
+		)
+		OR (
+		tb_meeting.`End` &gt; #{end}
+		AND tb_meeting.Date &gt;= #{date}
+		)
+	</select>
+
+	<!-- 选出待参加的会议的总数 -->
+	<select id="queryMeetingsWaitCount" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="int">
+		SELECT COUNT(1) FROM (
+		SELECT
+		meeting.ID
+		FROM
+		tb_meeting meeting,
+		tb_entity_account ea
+		WHERE
+		meeting.ID = ea.EntityID
+		AND ea.AccountID = #{keyValMap.currentUserId}
+		AND (
+		meeting.Date &gt; #{keyValMap.currentDate}
+		OR (
+		meeting.Date = #{keyValMap.currentDate}
+		AND meeting.`End` &gt; #{keyValMap.currentTime}
+		)
+		)
+		) tmp
+	</select>
+
+	<!-- 选出已结束的会议的总数 -->
+	<select id="queryMeetingsOverCount" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="int">
+		SELECT COUNT(1) FROM (
+		SELECT
+		meeting.ID
+		FROM
+		tb_meeting meeting,
+		tb_entity_account ea
+		WHERE
+		meeting.ID = ea.EntityID
+		AND ea.AccountID = #{keyValMap.currentUserId}
+		AND (
+		meeting.Date &lt; #{keyValMap.currentDate}
+		OR (
+		meeting.Date = #{keyValMap.currentDate}
+		AND meeting.`End` &lt;= #{keyValMap.currentTime}
+		)
+		)
+		) tmp
+	</select>
+
+</mapper>

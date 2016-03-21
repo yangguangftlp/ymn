@@ -1,0 +1,376 @@
+.grayBorderBottom{
+    border-bottom: 1px solid #ccc;
+}
+section>header{
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    padding-left: 10px;
+}
+section>header>input {
+    appearance: button;
+    -webkit-appearance: button;
+    width: 100% !important;
+    height: 1px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    opacity: 1;
+    margin-top: 0;
+    border: 0 !important;
+    outline: none !important;
+    background: transparent;
+}
+section>header>input:before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: #dedfe0;
+    width: 100%;
+    height: 40px;
+}
+section>header>i{
+    position: absolute;
+    font-size: 19px !important;
+    right: 15px;
+    top: 10px;
+}
+/* 修改列表样式Start */
+.listRight i,.listRight label{
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    font-size: 19px !important;
+    z-index: 1000;
+}
+.listRight .add-on{
+    position: absolute;
+    right: 3px;
+}
+.listRight b{
+    position: absolute;
+    right: 0px;
+    top: 2px;
+    font-weight: 400;
+    font-size: 16px !important;
+    z-index: 1001;
+}
+.listRight input {
+    width: 90% !important;
+}
+.formList:first-child {
+    border-top: 0;
+}
+/* 修改列表样式 End */
+/* 导航input Start */
+.warp>section input:checked+i.projectIcon{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+.warp>section input+i.projectIcon{
+    transition: all 1s ease;
+    -webkit-transition: all 1s ease;
+}
+.warp .navHeader{
+    border-bottom: 1px solid #aeaeae;
+    position: relative;
+}
+/* 导航input End */
+
+/* 弹出模态框Start */
+.addModal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.2);
+    z-index: 5800;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.modalShell{
+    /*position: fixed;*/
+    width: 76%;
+    /*left: 12%;*/
+    background: #ebebeb;
+    border-radius: 8px;
+}
+/*.modalOpen{
+    overflow-x: hidden;
+    overflow-y: auto;
+}*/
+.warp{
+    overflow-y: hidden;
+}
+.modalCon{
+    width: 90%;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+
+}
+.addModal .formList,
+.addModal .selectPeople{
+    border-color: #ccc !important;
+}
+.addModal .formList:first-child {
+    border-top: 0 !important;
+}
+/* 弹出模态框End */
+
+/* 回款信息的展示 */
+.returnedMoneyInfo{
+    padding: 0 20px 10px 20px;
+    background: #fff;
+    position: relative;
+}
+.returnedMoneyInfo>div{
+    font-size: 15px;
+    color: #787878 !important;
+    padding-top: 10px;
+}
+.returnedMoneyInfo>div>div{
+	padding-top: 10px;
+}
+.returnedMoneyInfo i{
+    position: absolute;
+    right: 15px;
+    font-size: 19px;
+    top: 50px;
+    z-index: 2000;
+}
+.listLeft.listWidth3{
+    float: left;
+    color: #787878;
+    margin-left: -100%;
+    position: relative;
+    z-index: 1000;
+    font-size: 16px;
+    width: 3em;
+}
+.listPadding3{
+    padding-left: 3em;
+    font-size: 15px !important;
+    box-sizing: border-box;
+    min-height: 0 !important;
+}
+/* 岗位/人员安排 */
+.personnelPlacement{
+    color: #787878;
+    font-size: 15px !important;
+}
+.personnelPlacement>i{
+    position: absolute;
+    font-size: 19px;
+    right: 15px;
+    top: 17px;
+    color: #565656;
+}
+/* 项目修改记录 */
+.revampRecord{
+    font-size: 14px;
+    padding: 10px 15px 8px 10px;
+    line-height: 24px;
+    border-bottom: 1px solid #aeaeae;
+    background: #fff;
+}
+/* 反馈信息 */
+.feedback{
+    font-size: 16px;
+    padding: 0px 15px 0px 10px;
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    border-top: 1px solid #aeaeae;
+}
+
+.feedback>i{
+    font-size: 19px;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    z-index: 2000;
+}
+.feedbackCon,.departmentFeedbackCon{
+    background: #fff;
+    /* margin: 0 10px 12px 10px; */
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 0 !important;
+}
+.feedbackCon{
+    padding: 5px 10px 9px 15px;
+    height: 144px;
+    overflow-y: auto;
+}
+.feedbackCon b,.departmentFeedbackCon b{
+    color: #65A2FA;
+    font-weight: 400;
+}
+.departmentFeedbackCon{
+    position: relative;
+}
+.departmentFeedbackCon>div{
+    padding: 5px 10px 0px;
+}
+.departmentFeedbackCon>div:last-child{
+    padding-bottom: 5px !important;
+}
+/* #commentFooter{
+    position: relative;
+    padding: 10px 15px 10px 15px;
+    background: #fff;
+}
+#commentFooter input{
+    box-sizing: content-box;
+    width: 80%;
+    border: 1px solid #aeaeae;
+    border-radius: 4px;
+    height: 24px;
+    line-height: 24px;
+    padding: 4px 0 4px 10px;
+} */
+#commentFooter{
+    position: relative;
+    padding: 10px 15px 10px 15px;
+    background: #fff;
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    box-align : center;
+    -webkit-box-align : center;
+    -moz-box-align : center;
+    -webkit-box-pack : justify;
+    -moz-box-pack : justify;
+    box-pack : justify;
+}
+#commentFooter input{
+    box-sizing: content-box;
+    width: 78%;
+    border: 1px solid #aeaeae;
+    border-radius: 4px;
+    height: 24px;
+    line-height: 24px;
+    padding: 4px 0 4px 10px;
+    display: block;
+    outline: none;
+    background: #fff;
+}
+#commentFooter img{
+    position: absolute;
+    top: 12px;
+    right: 15px;
+}
+/* 相关部门负责人 */
+#departmentForm .formList[dataid] span {
+    font-size: 15px !important;
+    color: #787878 !important;
+}
+/* 回款编辑 */
+.returnedMoneyInfo em{
+    position: absolute;
+    right: 40px;
+    font-size: 19px;
+    top: 50px;
+    z-index: 2000;
+}
+li.twoLine div span:first-child{
+    width: 65% !important;
+}
+li.twoLine div span:nth-child(2){
+    display: block;
+    float: right;
+    width: 25% !important;
+    margin-right: 10%;
+    text-align: right;
+}
+/* 相关材料提示 */
+.relatedTips{
+    background-color: #fff;
+    padding-bottom: 20px;
+    padding: 0px 15px 10px 10px;
+    color: #aaa;
+    line-height: 20px;
+    font-size: 14px;
+}
+/* 项目流程 */
+.process{
+    background: #fff;
+    padding: 5px 0;
+}
+.process ul{
+    padding: 0px 15px 0px 10px;
+}
+.process .processList{
+    padding: 5px 0;
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    box-align : center;
+    -webkit-box-align : center;
+    -moz-box-align : center;
+    -webkit-box-pack : start ;
+    -moz-box-pack : start ;
+    box-pack : start ;
+}
+.processHeadPortrait{
+    width: 20%;
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    box-align : center;
+    -webkit-box-align : center;
+    -moz-box-align : center;
+    -webkit-box-pack : center ;
+    -moz-box-pack : center ;
+    box-pack : center ;
+    -webkit-box-orient : vertical;
+    box-orient : vertical;
+}
+.processHeadPortrait > span{
+    text-align: center;
+    display: block;
+}
+.processHeadPortrait > span:first-child{
+    width: 40px;
+    position: relative;
+}
+.processHeadPortrait img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.processHeadPortrait b{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    display: block;
+    background-size: 18px 18px !important;
+    top: 0px;
+    right: -8px;
+}
+.processCon{
+    width: 75%;
+}
+.processCon > span{
+    display: block;
+    line-height: 24px;
+}
+.processCon > span:nth-child(2){
+    color: rgb(3, 169, 244);
+}
+.process li{
+    border-bottom: 0;
+}
+.processLine{
+    border-left: 1px solid #aeaeae;
+    height: 10px;
+    display: block;
+    padding-left: 10px;
+    border-bottom: 0;
+    margin-left: 10%;
+}

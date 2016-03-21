@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.common.weixin.dao.EntityProgressMapper">
+
+	<resultMap id="result" type="EntityProgress">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="entityId" column="EntityID" />
+		<result property="content" column="Content" />
+		<result property="createTime" column="CreateTime" />
+	</resultMap>
+	<!-- 新增实体进展记录 -->
+	<insert id="addEntityProgress" parameterType="java.util.List">
+		INSERT INTO tb_entity_progress
+		(ID,CorpId,EntityID,Content,CreateTime) VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.entityId},#{item.content},#{item.createTime})
+		</foreach>
+	</insert>
+
+	<!-- 分页条件sql -->
+	<sql id="selectEntityProgressByQueryCriteriaSql">
+		FROM tb_entity_progress tb
+		<where>
+			1 = 1
+			<if test="parameter.entityId != null ">and EntityID = #{parameter.entityId}</if>
+			<if test="parameter.corpId != null ">and CorpId = #{parameter.corpId}</if>
+		</where>
+	</sql>
+	<!-- 分页查询数据 -->
+	<select id="queryEntityProgressByPage" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultMap="result">
+		SELECT *
+		<include refid="selectEntityProgressByQueryCriteriaSql" />
+		 ORDER BY CreateTime asc
+		<if test="orderBy != null">
+			${orderBy}
+		</if>
+	</select>
+	<!-- 查询总数 -->
+	<select id="queryEntityProgressCount" parameterType="com.vyiyun.weixin.model.SqlQueryParameter"
+		resultType="long">
+		SELECT count(1)
+		<include refid="selectEntityProgressByQueryCriteriaSql" />
+	</select>
+
+	<!-- 删除实体进展记录 -->
+	<delete id="deleteEntityProgress" parameterType="EntityProgress">
+		DELETE FROM tb_entity_progress
+		<where>
+		    <if test="id != null">ID = #{id}</if>
+			<if test="entityId != null">and EntityID = #{entityId}</if>
+		</where>
+	</delete>
+	<!-- 更新实体进展记录 -->
+	<update id="updateEntityProgress" parameterType="EntityProgress">
+		UPDATE tb_entity_progress
+		<set>
+			<if test="entityId != null ">EntityID = #{entityId},</if>
+			<if test="content != null ">Content = #{content}</if>
+		</set>
+		<where>
+			<if test="id != null">ID = #{id}</if>
+			<if test="entityId != null">and EntityID = #{entityId}</if>
+		</where>
+	</update>
+
+</mapper>

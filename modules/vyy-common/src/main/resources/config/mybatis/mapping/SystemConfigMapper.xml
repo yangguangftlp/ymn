@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vyiyun.weixin.dao.SystemConfigMapper">
+
+	<resultMap id="result" type="SystemConfig">
+		<result property="id" column="ID" />
+		<result property="corpId" column="CorpId" />
+		<result property="type" column="Type" />
+		<result property="value" column="Value" />
+		<result property="name" column="Name" />
+		<result property="desc" column="Desc" />
+		<result property="content" column="Content" />
+		<result property="px" column="PX" jdbcType="INTEGER" />
+	</resultMap>
+
+	<insert id="addSystemConfig" parameterType="java.util.List">
+		INSERT INTO tb_system_config (ID,CorpId,Type,Value,Name,`Desc`,Content,PX)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id},#{item.corpId},#{item.type},#{item.value},#{item.name},#{item.desc},#{item.content},#{item.px})
+		</foreach>
+	</insert>
+
+	<select id="getSystemConfig" parameterType="SystemConfig"
+		resultMap="result">
+		SELECT * FROM tb_system_config
+		<if test="_parameter != null">
+			<where>
+				<if test="id != null">
+					ID = #{id}
+				</if>
+				<if test="corpId != null">
+					and CorpId = #{corpId}
+				</if>
+				<if test="type != null">
+					and Type = #{type}
+				</if>
+				<if test="name != null">
+					and Name = #{name}
+				</if>
+			</where>
+		</if>
+	</select>
+
+	<!-- 更新系统配置 -->
+	<update id="updateSystemConfig" parameterType="SystemConfig">
+		UPDATE tb_system_config
+		SET Value = #{value}
+		WHERE 1 = 1
+		<if test="corpId != null and corpId != ''">
+		AND CorpId = #{corpId}
+		</if>
+		<if test="type != null and type != ''">
+		AND Type = #{type}
+		</if>
+		<if test="name != null and name != ''">
+		AND Name = #{name}
+		</if>
+	</update>
+</mapper>

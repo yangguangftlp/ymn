@@ -1,0 +1,122 @@
+/* 签到主题、开始时间、结束时间样式Start */
+.formList{
+    padding: 0 15px 0 10px;
+    border-bottom: 1px solid #aeaeae;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    background: #fff;
+    position: relative;
+}
+.formList:first-child{
+    border-top: 1px solid #aeaeae;
+}
+.listLeft{
+    width: 5em;
+    float: left;
+    color: #000;
+    margin-left: -100%;
+    position: relative;
+    z-index: 1000;
+}
+.listRight{
+    float: left;
+    width: 100%;
+}
+.listRight span{
+    display: block;
+    width: 100%;
+    padding-left: 5.5em;
+    color: #787878;
+    position: relative;
+    z-index: 1000;
+    font-size: 14px;
+}
+.controls .add-on{
+    position: absolute;
+    top: 15px;
+    right: 0px;
+    font-size: 19px;
+    z-index: 1000;
+}
+/* 签到主题、开始时间、结束时间样式End */
+
+/* 签到人员列表Start */
+.signInPeopleTit,
+.canningTit{
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+.signInPeopleList,
+.canningCopyList{
+    background: #fff;
+    padding: 16px 20px 16px 0px;
+}
+.signInPeopleList *,
+.canningCopyList *{
+    vertical-align: middle;
+}
+.signInPeopleList>div,
+.canningCopyList>div{
+    display: inline-block;
+}
+.addedPeopleList div,
+.canningCopy div{
+    text-align: center;
+    display: inline-block;
+    width: 49px;
+    margin-left: 20px;
+    position: relative;
+}
+.addedPeopleList div img {
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 10px;
+}
+.canningCopy div img{
+    height: 60px;
+    width: auto;
+}
+.addedPeopleList div i,
+.canningCopy div i{
+    position: absolute;
+    top: 0;
+    right: -7px;
+    width: 17px;
+    height: 17px;
+    background: url("../images/cancelPeople.png") no-repeat;
+    background-size: 17px 17px;
+}
+.addedPeopleList div span{
+    font-size: 14px;
+}
+.addPeople,
+.addCanningCopyBtn{
+    margin-left: 20px;
+}
+.addPeople img,
+.addCanningCopyBtn img{
+    width: 36px;
+    height: 36px;
+}
+/* 签到人员列表End */
+
+/* 提示模态框Start */
+.promptModal{
+    background: rgba(0,0,0,0.8);
+    font-size: 14px;
+    color: #fff;
+    width: 134px;
+    height: 94px;
+    text-align: center;
+    line-height: 94px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 2000;
+    top: 100px
+}
+/* 提示模态框End */

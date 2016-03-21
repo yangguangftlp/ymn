@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>微移云，企业移动办公解决方案服务商</title>
+	<meta name="keywords" content="优客互联,帮助客户更优秀,移动办公,云协作,移动OA,微信企业号,微信办公,手机办公,企业号服务商" />
+	<meta name="description" content="优客互联面向企业的日常办 公场景，提供丰富的基于微信平台的轻应用；同时， 向企业用户提供企业号开通及认证、应用定制、使用培训、辅助运营、统计分析等全 方位办公自动化解决方案。"/><!-- basic styles -->
+	<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<script src="js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<link href="css/style.css" rel="stylesheet" />
+	<link href="css/animate.css" rel="stylesheet" />
+	<!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+	<!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<section class="wrap">
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#example-navbar-collapse">
+					<span class="sr-only">切换导航</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html">
+					<img src="images/logo.png" height="50" />
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="example-navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="index.html">首页</a></li>
+					<li><a href="product.html" class="active">产品</a></li>
+					<li><a href="custom.html">定制</a></li>
+					<li><a href="help.html" >帮助</a></li>
+					<li><a href="about.html">关于我们</a></li>
+					<li>
+                        <div class="header-btn btns">
+                            <a class="btn btn-dm btn-org" href="javascript:void(0)">登录</a>
+                            <a class="btn btn-dm btn-blue" href="reg.html">注册</a>
+                        </div>
+                    </li>
+				</ul>
+
+			</div>
+
+		</div>
+	</nav>
+	<section class="product-detail">
+		<div class="body-grey">
+			<div class="container mt-30">
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+						<div class="pd-pro-menu">
+							<ul class="list-group">
+								<li class="list-group-item"><i class="icon icon-rcbg"></i>日常办公</li>
+								<li class="list-group-item " data-pro="qiandao">
+									<a href="javascript:void(0)" class="qiandao">签到</a>
+								</li>
+								<li class="list-group-item" data-pro="qingjia">
+									<a href="javascript:void(0)" class="qingjia">请假</a>
+								</li>
+<!-- 								<li class="list-group-item" data-pro="tongxunlu"> -->
+<!-- 									<a href="javascript:void(0)" class="tongxunlu">通讯录</a> -->
+<!-- 								</li> -->
+							</ul>
+							<ul class="list-group">
+								<li class="list-group-item"><i class="icon icon-ydoa"></i>移动OA</li>
+								<li class="list-group-item" data-pro="baoxiao">
+									<a href="javascript:void(0)" class="baoxiao">报销</a>
+								</li>
+								<li class="list-group-item" data-pro="huiyishiyuding">
+									<a href="javascript:void(0)" class="huiyishiyuding">会议室预订</a>
+								</li>
+								<li class="list-group-item" data-pro="shenpi">
+									<a href="javascript:void(0)" class="shenpi">审批</a>
+								</li>
+								<li class="list-group-item" data-pro="jiekuan">
+									<a href="javascript:void(0)" class="jiekuan">借款</a>
+								</li>
+							</ul>
+							<ul class="list-group">
+								<li class="list-group-item"><i class="icon icon-gzyl"></i>工作小助手</li>
+<!-- 								<li class="list-group-item" data-pro="suijixuanzuo"> -->
+<!-- 									<a href="javascript:void(0)" class="suijixuanzuo">随机选座</a> -->
+<!-- 								</li> -->
+								<!--<li class="list-group-item" data-pro="suijixuanren">
+                                   <a href="javascript:void(0)" class="suijixuanren">随机选人</a>
+                                </li>
+                                <li class="list-group-item" data-pro="jiguchuanhua">
+                                   <a href="javascript:void(0)" class="jiguchuanhua">击鼓传花</a>
+                                </li>-->
+								<li class="list-group-item" data-pro="pingjia">
+									<a href="javascript:void(0)" class="pingjia">员工评价</a>
+								</li>
+								<li class="list-group-item" data-pro="pingjiapaihang">
+									<a href="javascript:void(0)" class="pingjiapaihang">评价管理</a>
+								</li>
+							</ul>
+							</ul>
+							<ul class="list-group">
+								<li class="list-group-item"><i class="icon icon-xxfb"></i>信息发布</li>
+								<li class="list-group-item" data-pro="fankui">
+									<a href="javascript:void(0)" class="fankui">问题反馈</a>
+								</li>
+								<li class="list-group-item" data-pro="kuaididaole">
+									<a href="javascript:void(0)" class="kuaididaole">快递到了</a>
+								</li>
+								<!--<li class="list-group-item" data-pro="toupiao">
+                                   <a href="javascript:void(0)" class="toupiao">投票</a>
+                                </li>-->
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 pdprod-wrap">
+						<div class="pd-pro-desc">
+
+							<div class="pd-qiandao pd-desc-module show">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/qiandao.png" width="72"/>签到
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteOa.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>打破传统固定地点打卡模式，免除排队烦恼，实现手机一键签到，更可以随时查看自己考勤情况，美好的一天从签到开始。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide wow fadeIn" >
+													<img src="images/qiandao/qd1.jpg" />
+												</div>
+												<div class="swiper-slide wow fadeIn">
+													<img src="images/qiandao/qd2.jpg" />
+												</div>
+												<div class="swiper-slide wow fadeIn">
+													<img src="images/qiandao/qd3.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/qiandao/qd4.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/qiandao/qd5.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/qiandao/qd6.jpg" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-qingjia pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/qingjia.png" width="72"/>请假
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteOa.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>告别传统纸质请假条、领导层层审批，更加人性化，实现高效性办公。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/qingjia/qj1.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/qingjia/qj2.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/qingjia/qj3.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/qingjia/qj4.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/qingjia/qj4.jpg" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-baoxiao pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/baoxiao.png" width="72"/>报销
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteMobile.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>打破传统纸质发票报销的局限，员工通过微信端上报报销明细，节省外地同事报销快递成本，时间成本，领导接收微信端审批消息及时提醒，进行审批。提高工作效率。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/baoxiao/bx1.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/baoxiao/bx2.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/baoxiao/bx3.jpg" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-tongxunlu pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/lianxiren.png" width="72"/>通讯录
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteMobile.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>开启微企通讯录，企业成员可以在微信上访问通讯录，实现企业内部通讯录的共享。您还可以通过配置，进行访问权限的管理。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/tongxunlu/tx1.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/tongxunlu/tx2.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/tongxunlu/tx3.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/tongxunlu/tx4.jpg" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-huiyishiyuding pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/huiyishiyuding.png" width="72"/>会议室预订
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteMobile.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>通过微信端预定会议室，避免会议室使用时间冲突情况。随时随地发起会议邀约，时间地点内容的提醒，节约会议发起人群发通知参会人员的时间。 </p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/huiyishi/hys1.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/huiyishi/hys2.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/huiyishi/hys3.jpg" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-shenpi pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/shenpishenqing.png" width="72"/>审批
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteMobile.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>摆脱时间地点的限制，通过微信端上传审批事件，同时实时发送微信提醒，领导可实时在微信端完成审批，真正实现高效、简单、开放的自由审批流程。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/shenpi/sp1.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/shenpi/sp2.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/shenpi/sp3.jpg" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-suijixuanzuo pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/xuanzuowei.png" width="72"/>选座位
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteOa.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>公司全员大会，根据座位行列数随机选择座位，快速确定问题回答人。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/xuanzuowei/xzw1.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/xuanzuowei/xzw2.jpg" />
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-pingjia pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/pingjia.png" width="72"/>员工评价
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteAssist.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>提供对员工的评价，以及员工可以查询对自己的评价。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/pingjia/pj1.png" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/pingjia/pj2.png" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/pingjia/pj3.png" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-pingjiapaihang pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/pingjiapaihang.png" width="72"/>评价管理
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteAssist.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>用于发起评价、查询员工评价信息。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/pingjiapaihang/pjph1.png" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/pingjiapaihang/pjph2.png" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/pingjiapaihang/pjph3.png" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/pingjiapaihang/pjph4.png" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/pingjiapaihang/pjph5.png" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-fankui pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/fankui.png" width="72"/>问题反馈
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteInfo.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>供员工向公司企业号开发人员反馈问题、意见及建议。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/fankui/fk1.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/fankui/fk2.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/fankui/fk3.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/fankui/fk4.jpg" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-kuaididaole pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/kuaidi.png" width="72"/>快递到了
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteInfo.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>快递到了为员工提供快递统一收取管理，方便员工领取。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/kuaidi/kd1.png" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/kuaidi/kd2.png" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/kuaidi/kd3.png" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-jiguchuanhua pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/jiguchuanhua.png" width="72"/>击鼓传花
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteOa.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>公司举办集体活动，如培训中使用微信摇一摇功能，在限定时间内，同事接力到最后一人接受奖励或惩罚。</p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+								</div>
+							</div>
+							<div class="pd-gonggao pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/gonggao.png" width="72"/>新闻公告
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteOa.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>通过微信消息推送公司重大决策和重大事件，企业员工无论在何时何地都可以通过微信端分享企业的最新动态。</p>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+									<div class="propic-slider">
+										<div class="swiper-container">
+
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/gonggao/gg1.jpg" />
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="pd-jiekuan pd-desc-module hidden">
+								<div class="pdpro-icon clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<img src="images/jiekuan.png" width="72"/>借款
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-10">
+										<div class="btns  text-right">
+											<!--<a class="btn btn-dm btn-blue">体验</a>-->
+											<a class="btn btn-dm btn-org" href="/wxAuth/wxService/suiteMobile.action"  target="_blank">安装</a>
+											<a class="btn btn-dm btn-borgrey" href="help.html">帮助</a>
+										</div>
+									</div>
+								</div>
+								<div class="pdmodule-desc">
+									<h3>应用简介</h3>
+									<p>支持对公，对私借款操作，申请人可以查看自己申请记录，审核人，财务可以查看待审核以及审核记录，给员工日常借款提供很方便的操作，及时，高效。 </p>
+								</div>
+
+								<div class="pdmodule-desc">
+									<h3>应用展示</h3>
+
+									<div class="propic-slider">
+										<div class="swiper-container">
+											<div class="p-button-prev"></div>
+											<div class="swiper-wrapper">
+												<div class="swiper-slide">
+													<img src="images/jiekuan/jk1.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/jiekuan/jk2.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/jiekuan/jk3.jpg" />
+												</div>
+												<div class="swiper-slide">
+													<img src="images/jiekuan/jk4.jpg" />
+												</div>
+											</div>
+											<div class="p-button-next"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="row sevice">
+			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+				<h4>微移云</h4>
+				<p class="mt-10"><a href="help.html">帮助中心</a></p>
+				<p><a href="about.html">关于我们</a></p>
+				<p><a href="custom.html">市场合作</a></p>
+				<p><a href="about.html">人才招聘</a></p>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<h4>客服热线</h4>
+				<p class="big_tel">025-85635699</p>
+				<p class="b_name">江苏优客互联科技股份有限公司</p>
+				<p class="beian">版权所有 <a target="_blank"  href="http://www.miitbeian.gov.cn">苏ICP备15055835号-1</a></p>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+				<h4>关注我们的微信公众号</h4>
+				<p class="mt-15"><img src="images/erweima.gif" /></p>
+			</div>
+		</div>
+
+	</div>
+</footer>
+
+<script src="js/swiper/idangerous.swiper.min.js"></script>
+<script src="js/page.js"></script>
+<script>	
+	$(function(){
+		pDetailPage();
+	});
+
+</script>
+</body>
+</html>
