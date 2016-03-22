@@ -100,7 +100,7 @@ public class WebSocketService extends WebSocketServlet {
 		@Override
 		protected void onBinaryMessage(ByteBuffer message) throws IOException {
 			byte[] bytes = message.array();
-			// 添加业务处理
+			// 通知业务处理 
 		}
 
 		/**
@@ -116,7 +116,7 @@ public class WebSocketService extends WebSocketServlet {
 				JSONObject params = JSONObject.parseObject(msgContent);
 				for (WSMessageInbound msgInbound : wsClients) {
 					if (msgInbound.uId.equals(params.getString("touid"))) {
-						// 添加业务处理
+						// 通知业务处理 
 						msgInbound.outbound.writeTextMessage(CharBuffer.wrap(params.toJSONString()));
 						msgInbound.outbound.flush();
 					}
@@ -131,7 +131,7 @@ public class WebSocketService extends WebSocketServlet {
 			super.onOpen(outbound);
 			this.outbound = outbound;
 
-			// 添加业务处理
+			// 通知业务处理 
 		}
 
 		@Override
